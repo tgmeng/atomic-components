@@ -1,0 +1,57 @@
+---
+name: Button
+menu: Components
+---
+
+import { Playground, Props } from 'docz';
+import { Button } from './index.tsx';
+
+# Button
+
+Buttons make common actions more obvious and help users more easily perform them. Buttons use labels and sometimes icons to communicate the action that will occur when the user touches them.
+
+## Properties
+
+<Props of={Button} />
+
+## Basic usage
+
+<Playground>
+  <Button>Click me</Button>
+</Playground>
+
+## With different style
+
+<Playground>
+  <Button>Click me</Button>
+  <Button appearance="solid">Click me</Button>
+  <Button appearance="dashed">Click me</Button>
+  <Button appearance="link">Click me</Button>
+</Playground>
+
+## With different sizes
+
+<Playground>
+  <Button size="small">Click me</Button>
+  <Button size="normal">Click me</Button>
+  <Button size="big">Click me</Button>
+</Playground>
+
+## With different colors
+
+<Playground>
+  <p>
+    <Button kind="primary">Click me</Button>
+    <Button kind="secondary">Click me</Button>
+    <Button kind="info">Click me</Button>
+    <Button kind="positive">Click me</Button>
+    <Button kind="negative">Click me</Button>
+  </p>
+  <p>
+    <Button appearance="solid" kind="primary">Click me</Button>
+    <Button appearance="solid" kind="secondary">Click me</Button>
+    <Button appearance="solid" kind="info">Click me</Button>
+    <Button appearance="solid" kind="positive">Click me</Button>
+    <Button appearance="solid" kind="negative">Click me</Button>
+  </p>
+</Playground>
