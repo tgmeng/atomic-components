@@ -4,7 +4,7 @@ menu: Components
 ---
 
 import { Playground, Props } from 'docz';
-import { Button } from './index.tsx';
+import Button from './index.tsx';
 
 # Button
 
@@ -14,19 +14,64 @@ Buttons make common actions more obvious and help users more easily perform them
 
 <Props of={Button} />
 
-## Basic usage
+## All variations
 
 <Playground>
-  <Button>Click me</Button>
-</Playground>
-
-## With different style
-
-<Playground>
-  <Button>Click me</Button>
-  <Button appearance="solid">Click me</Button>
-  <Button appearance="dashed">Click me</Button>
-  <Button appearance="link">Click me</Button>
+  <p>
+    <Button>Click me</Button>
+    <Button kind="primary">Click me</Button>
+    <Button kind="info">Click me</Button>
+    <Button kind="positive">Click me</Button>
+    <Button kind="negative">Click me</Button>
+  </p>
+  <p>
+    <Button appearance="solid">
+      Click me
+    </Button>
+    <Button appearance="solid" kind="primary">
+      Click me
+    </Button>
+    <Button appearance="solid" kind="info">
+      Click me
+    </Button>
+    <Button appearance="solid" kind="positive">
+      Click me
+    </Button>
+    <Button appearance="solid" kind="negative">
+      Click me
+    </Button>
+  </p>
+  <p>
+    <Button appearance="dashed">
+      Click me
+    </Button>
+    <Button appearance="dashed" kind="primary">
+      Click me
+    </Button>
+    <Button appearance="dashed" kind="info">
+      Click me
+    </Button>
+    <Button appearance="dashed" kind="positive">
+      Click me
+    </Button>
+    <Button appearance="dashed" kind="negative">
+      Click me
+    </Button>
+  </p>
+  <p>
+    <Button appearance="link">
+      Click me
+    </Button>
+    <Button appearance="link" kind="info">
+      Click me
+    </Button>
+    <Button appearance="link" kind="positive">
+      Click me
+    </Button>
+    <Button appearance="link" kind="negative">
+      Click me
+    </Button>
+  </p>
 </Playground>
 
 ## With different sizes
@@ -37,21 +82,10 @@ Buttons make common actions more obvious and help users more easily perform them
   <Button size="big">Click me</Button>
 </Playground>
 
-## With different colors
+## Disabled
 
 <Playground>
-  <p>
-    <Button kind="primary">Click me</Button>
-    <Button kind="secondary">Click me</Button>
-    <Button kind="info">Click me</Button>
-    <Button kind="positive">Click me</Button>
-    <Button kind="negative">Click me</Button>
-  </p>
-  <p>
-    <Button appearance="solid" kind="primary">Click me</Button>
-    <Button appearance="solid" kind="secondary">Click me</Button>
-    <Button appearance="solid" kind="info">Click me</Button>
-    <Button appearance="solid" kind="positive">Click me</Button>
-    <Button appearance="solid" kind="negative">Click me</Button>
-  </p>
+  <Button disabled>Click me</Button>
+  <Button disabled>Click me</Button>
+  <Button disabled>Click me</Button>
 </Playground>

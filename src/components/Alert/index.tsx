@@ -8,27 +8,25 @@ const kinds: KindMap = {
   info: Color.Info,
   positive: Color.Positive,
   negative: Color.Negative,
-  warning: Color.Warning
+  warning: Color.Warning,
 };
 
 export interface AlertProps {
   kind?: 'info' | 'positive' | 'negative' | 'warning';
 }
 
-export const Alert: SFC<AlertProps> = ({
-  children,
-  kind = 'info',
-  ...rest
-}) => (
+const Alert: SFC<AlertProps> = ({ children, kind = 'info', ...rest }) => (
   <div
     style={{
       padding: 20,
       background: kinds[kind] || BaseColor.White,
       borderRadius: 3,
-      color: BaseColor.White
+      color: BaseColor.White,
     }}
     {...rest}
   >
     {children}
   </div>
 );
+
+export default Alert;
