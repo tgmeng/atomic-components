@@ -10,82 +10,50 @@ import Button from './index.tsx';
 
 Buttons make common actions more obvious and help users more easily perform them. Buttons use labels and sometimes icons to communicate the action that will occur when the user touches them.
 
-## Properties
-
-<Props of={Button} />
-
-## All variations
+## Variant
 
 <Playground>
-  <p>
-    <Button>Click me</Button>
-    <Button kind="primary">Click me</Button>
-    <Button kind="info">Click me</Button>
-    <Button kind="positive">Click me</Button>
-    <Button kind="negative">Click me</Button>
-  </p>
-  <p>
-    <Button appearance="solid">
-      Click me
-    </Button>
-    <Button appearance="solid" kind="primary">
-      Click me
-    </Button>
-    <Button appearance="solid" kind="info">
-      Click me
-    </Button>
-    <Button appearance="solid" kind="positive">
-      Click me
-    </Button>
-    <Button appearance="solid" kind="negative">
-      Click me
-    </Button>
-  </p>
-  <p>
-    <Button appearance="dashed">
-      Click me
-    </Button>
-    <Button appearance="dashed" kind="primary">
-      Click me
-    </Button>
-    <Button appearance="dashed" kind="info">
-      Click me
-    </Button>
-    <Button appearance="dashed" kind="positive">
-      Click me
-    </Button>
-    <Button appearance="dashed" kind="negative">
-      Click me
-    </Button>
-  </p>
-  <p>
-    <Button appearance="link">
-      Click me
-    </Button>
-    <Button appearance="link" kind="info">
-      Click me
-    </Button>
-    <Button appearance="link" kind="positive">
-      Click me
-    </Button>
-    <Button appearance="link" kind="negative">
-      Click me
-    </Button>
-  </p>
+  <Button>Default</Button>
+  <Button variant="primary">Primary</Button>
+  <Button variant="dashed">Dashed</Button>
+  <Button variant="link">Link</Button>
 </Playground>
 
-## With different sizes
+## Indent
 
 <Playground>
-  <Button size="small">Click me</Button>
-  <Button size="normal">Click me</Button>
-  <Button size="big">Click me</Button>
+  <Button variant="primary" indent="success">Primary</Button>
+  <Button variant="dashed" indent="success">Dashed</Button>
+  <Button variant="link" indent="success">Link</Button>
+  <Button variant="primary" indent="danger">Primary</Button>
+  <Button variant="dashed" indent="danger">Dashed</Button>
+  <Button variant="link" indent="danger">Link</Button>
+  <Button variant="primary" indent="warning">Primary</Button>
+  <Button variant="dashed" indent="warning">Dashed</Button>
+  <Button variant="link" indent="warning">Link</Button>
+</Playground>
+
+## Different sizes
+
+<Playground>
+  <Button size="small">Small</Button>
+  <Button size="normal">Normal</Button>
+  <Button size="large">Large</Button>
 </Playground>
 
 ## Disabled
 
 <Playground>
-  <Button disabled>Click me</Button>
-  <Button disabled>Click me</Button>
-  <Button disabled>Click me</Button>
+  <Button disabled>Disabled</Button>
 </Playground>
+
+## Loading
+
+<Playground>
+  <Button loading>Loading</Button>
+</Playground>
+
+
+## Properties
+
+<Props of={Button} />

@@ -1,6 +1,8 @@
 import babel from '@rollup/plugin-babel';
 import peerDepsExternal from 'rollup-plugin-peer-deps-external';
 import typescript from 'rollup-plugin-typescript2';
+import svgr from '@svgr/rollup'
+
 
 import pkg from './package.json';
 
@@ -24,5 +26,6 @@ export default {
       include: 'src/**',
     }),
     peerDepsExternal(),
+    svgr()
   ],
 };

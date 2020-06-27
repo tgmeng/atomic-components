@@ -15,12 +15,17 @@
   ],
   "scripts": {
     "build": "rollup -c",
-    "dev": "docz dev",
-    "build-docz": "docz build"
+    "docz:dev": "docz dev",
+    "docz:build": "docz build",
+    "docz:serve": "docz build && docz serve"
   },
   "dependencies": {
+    "@ant-design/colors": "^4.0.1",
     "@emotion/core": "^10.0.14",
     "@emotion/styled": "^10.0.14",
+    "@popperjs/core": "^2.4.0",
+    "polished": "^3.6.5",
+    "react-popper": "^2.2.3",
     "utility-types": "^3.10.0"
   },
   "peerDependencies": {
@@ -29,6 +34,8 @@
   },
   "devDependencies": {
     "@rollup/plugin-babel": "^5.0.2",
+    "@svgr/rollup": "^5.4.0",
+    "@svgr/webpack": "^5.4.0",
     "@types/react": "^16.8.23",
     "@types/react-dom": "^16.8.4",
     "@typescript-eslint/eslint-plugin": "^2.27.0",
@@ -42,7 +49,10 @@
     "eslint-plugin-jsx-a11y": "^6.2.3",
     "eslint-plugin-react": "^7.20.0",
     "eslint-plugin-react-hooks": "^4.0.4",
+    "gatsby-plugin-svgr": "^2.0.2",
     "prettier": "^2.0.5",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6",
     "rollup": "^2.12.0",
     "rollup-plugin-peer-deps-external": "^2.2.2",
     "rollup-plugin-typescript2": "^0.27.1",
