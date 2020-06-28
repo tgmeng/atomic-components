@@ -10,8 +10,9 @@ export const BaseColor = {
 };
 
 export const TextColor = {
-  Base: transparentize(0.35, BaseColor.Black)
-}
+  Base: transparentize(0.35, BaseColor.Black),
+  Heading: transparentize(0.15, BaseColor.Black),
+};
 
 export const Color = {
   Primary: blue[4],

@@ -1,32 +1,39 @@
-import React, { SFC } from 'react';
-import { Color, BaseColor } from '../../styles/color';
+import * as React from 'react';
 
-export type Kind = 'info' | 'positive' | 'negative' | 'warning';
-export type KindMap = Record<Kind, string>;
+import { styleCommonIcon } from '../Icon/style';
 
-const kinds: KindMap = {
-  info: Color.Info,
-  positive: Color.Positive,
-  negative: Color.Negative,
-  warning: Color.Warning,
+import { ReactComponent as InfoIcon } from '../../resources/svgs/circle/info.svg';
+import { ReactComponent as SuccessIcon } from '../../resources/svgs/circle/check.svg';
+import { ReactComponent as DangerIcon } from '../../resources/svgs/circle/close.svg';
+import { ReactComponent as WarningIcon } from '../../resources/svgs/circle/warning.svg';
+
+import { AlertProps } from './type';
+import {
+  Alert as StyledAlert,
+  AlertMessage,
+  AlertDescription,
+  Icon,
+} from './style';
+
+const iconByIndent = {
+  info: styleCommonIcon(InfoIcon),
+  success: styleCommonIcon(SuccessIcon),
+  danger: styleCommonIcon(DangerIcon),
+  warning: styleCommonIcon(WarningIcon),
 };
 
-export interface AlertProps {
-  kind?: 'info' | 'positive' | 'negative' | 'warning';
-}
-
-const Alert: SFC<AlertProps> = ({ children, kind = 'info', ...rest }) => (
-  <div
-    style={{
-      padding: 20,
-      background: kinds[kind] || BaseColor.White,
-      borderRadius: 3,
-      color: BaseColor.White,
-    }}
-    {...rest}
-  >
-    {children}
-  </div>
+const Alert: React.SFC<AlertProps> = ({
+  indent = 'info',
+  message,
+  description,
+  children,
+  ...restProps
+}) => (
+  <StyledAlert {...restProps} indent={indent}>
+    <Icon indent={indent}>{React.createElement(iconByIndent[indent])}</Icon>
+    <AlertMessage>{message ?? children}</AlertMessage>
+    {description && <AlertDescription>{description}</AlertDescription>}
+  </StyledAlert>
 );
 
 export default Alert;

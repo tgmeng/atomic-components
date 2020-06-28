@@ -8,21 +8,27 @@ import Alert from './index.tsx';
 
 # Alert
 
-## Properties
-
-<Props of={Alert} />
-
 ## Basic usage
 
 <Playground>
-  <Alert kind="warning">Some message</Alert>
+  <Alert>Some message</Alert>
+  <Alert message="Some message"></Alert>
 </Playground>
 
-## Using different kinds
+## Using different indent
 
 <Playground>
-  <Alert kind="info">Some message</Alert>
-  <Alert kind="positive">Some message</Alert>
-  <Alert kind="negative">Some message</Alert>
-  <Alert kind="warning">Some message</Alert>
+  <Alert indent="success">Some message</Alert>
+  <Alert indent="danger">Some message</Alert>
+  <Alert indent="warning">Some message</Alert>
 </Playground>
+
+## With description
+
+<Playground>
+  <Alert description="description">some message</Alert>
+</Playground>
+
+## Properties
+
+<Props of={Alert} />
