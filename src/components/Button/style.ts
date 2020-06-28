@@ -270,7 +270,7 @@ const getBaseStyle = () => css`
   cursor: pointer;
 `;
 
-export const StyledButton = styled('button')<ButtonProps>`
+export const Button = styled('button')<ButtonProps>`
   ${getBaseStyle}
   ${getSizeStyle};
   ${getVariantStyle};
@@ -288,7 +288,7 @@ const spin = keyframes`
 
 export const IconSpan = styled('span')`
   margin-right: 5px;
-  vertical-align: -.125em;
+  vertical-align: -0.125em;
 `;
 
 export const ReloadIconStyle = css`
