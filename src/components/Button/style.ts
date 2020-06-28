@@ -288,7 +288,6 @@ const spin = keyframes`
 
 export const IconSpan = styled('span')`
   margin-right: 5px;
-  vertical-align: -0.125em;
 `;
 
 export const ReloadIconStyle = css`
