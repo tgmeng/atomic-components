@@ -1,5 +1,6 @@
 import { css } from '@emotion/core';
 import styled from '@emotion/styled';
+import { math } from 'polished';
 
 import { generate } from '@ant-design/colors';
 
@@ -27,6 +28,14 @@ const getAlertColor = ({
   border: 1px solid ${borderColor};
 `;
 
+export const AlertMessage = styled('div')`
+  color: ${TextColor.Heading};
+`;
+
+export const AlertDescription = styled('div')`
+  color: ${TextColor.Base};
+`;
+
 const colorObjectByIndent: Record<Indent, AlertColorObject> = {
   info: generateAlertColorObject(Color.Info),
   success: generateAlertColorObject(Color.Success),
@@ -35,16 +44,13 @@ const colorObjectByIndent: Record<Indent, AlertColorObject> = {
 };
 
 export const Alert = styled('div')<AlertProps>`
-  padding: 8px 15px;
-  color: ${TextColor.Heading};
+  position: relative;
+  padding: 8px 15px 8px 30px;
   font-size: ${FontSize.Base};
   ${(props: AlertProps) =>
     getAlertColor(colorObjectByIndent[props.indent || 'info'])};
   border-radius: 2px;
 `;
-
-export const AlertMessage = styled('div')``;
-export const AlertDescription = styled('div')``;
 
 const iconColorByIndent: Record<Indent, string> = {
   info: Color.Info,
@@ -54,5 +60,10 @@ const iconColorByIndent: Record<Indent, string> = {
 };
 
 export const Icon = styled('span')<{ indent: Indent }>`
+  position: absolute;
+  top: ${math(`8px + (${FontSize.Medium} - ${FontSize.Base})`)};
+  left: 8px;
+  font-size: ${FontSize.Medium};
   color: ${(props) => iconColorByIndent[props.indent || 'info']};
+  line-height: 1;
 `;
