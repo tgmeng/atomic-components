@@ -1,10 +1,10 @@
 import { css, keyframes } from '@emotion/core';
 import styled from '@emotion/styled';
-
-import { generate } from '@ant-design/colors';
 import { position } from 'polished';
 
-import { changePXRelatively } from '../../utils';
+import { generate } from '@ant-design/colors';
+
+import { changePXRelatively } from '../../utils/style';
 import {
   Color,
   FontSize,
