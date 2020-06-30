@@ -24,14 +24,13 @@ const iconByIndent = {
 
 const Alert: React.SFC<AlertProps> = ({
   indent = 'info',
-  message,
   description,
   children,
   ...restProps
 }) => (
   <StyledAlert indent={indent} description={description} {...restProps}>
     <Icon indent={indent}>{React.createElement(iconByIndent[indent])}</Icon>
-    <AlertMessage>{message ?? children}</AlertMessage>
+    <AlertMessage>{children}</AlertMessage>
     {description && <AlertDescription>{description}</AlertDescription>}
   </StyledAlert>
 );
