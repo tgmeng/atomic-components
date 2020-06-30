@@ -7,9 +7,9 @@ yarn docz:dev # npm run docz:dev
 ```
 
 ## RoadMap
-- Components
-  - [ ] Button
-  - [ ] Alert
+- Basic Components
+  - [x] Button
+  - [x] Alert
   - [ ] Input
   - [ ] Modal
   - [ ] Popover
