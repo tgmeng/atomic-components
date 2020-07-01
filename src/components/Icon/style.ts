@@ -1,5 +1,7 @@
 import styled from '@emotion/styled';
 
+import { SVGRComponent } from '../../types';
+
 export const styleCommonIcon = (IconComponent: SVGRComponent) => styled(
   IconComponent
 )`
