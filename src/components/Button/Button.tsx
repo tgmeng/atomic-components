@@ -2,12 +2,12 @@ import * as React from 'react';
 
 import { createCommonStyledIcon } from '../Icon/style';
 
-import { ReactComponent as RawReloadIcon } from '../../resources/svgs/reload.svg';
+import { ReactComponent as OriginalReloadIcon } from '../../resources/svgs/reload.svg';
 
 import { ButtonProps } from './type';
 import { Button as StyledButton, ReloadIconStyle, IconSpan } from './style';
 
-const ReloadIcon = createCommonStyledIcon(RawReloadIcon);
+const ReloadIcon = createCommonStyledIcon(OriginalReloadIcon);
 
 const Button: React.FC<ButtonProps> = ({ children, loading, ...props }) => (
   <StyledButton {...props} loading={loading}>
