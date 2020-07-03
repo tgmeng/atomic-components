@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { styleCommonIcon } from '../Icon/style';
+import { createCommonStyledIcon } from '../Icon/style';
 
 import { ReactComponent as InfoIcon } from '../../resources/svgs/circle/info.svg';
 import { ReactComponent as SuccessIcon } from '../../resources/svgs/circle/check.svg';
@@ -16,10 +16,10 @@ import {
 } from './style';
 
 const iconByIndent = {
-  info: styleCommonIcon(InfoIcon),
-  success: styleCommonIcon(SuccessIcon),
-  danger: styleCommonIcon(DangerIcon),
-  warning: styleCommonIcon(WarningIcon),
+  info: createCommonStyledIcon(InfoIcon),
+  success: createCommonStyledIcon(SuccessIcon),
+  danger: createCommonStyledIcon(DangerIcon),
+  warning: createCommonStyledIcon(WarningIcon),
 };
 
 const Alert: React.SFC<AlertProps> = ({

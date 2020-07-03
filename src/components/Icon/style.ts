@@ -2,7 +2,7 @@ import styled from '@emotion/styled';
 
 import { SVGRComponent } from '../../types';
 
-export const styleCommonIcon = (IconComponent: SVGRComponent) => styled(
+export const createCommonStyledIcon = (IconComponent: SVGRComponent) => styled(
   IconComponent
 )`
   display: inline-block;
