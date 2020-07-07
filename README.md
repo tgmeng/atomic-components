@@ -10,7 +10,8 @@ yarn docz:dev # npm run docz:dev
 - Basic Components
   - [x] Button
   - [x] Alert
-  - [ ] Input
+  - [x] Input
+  - [x] Link
   - [ ] Modal
   - [ ] Popover
   - [ ] Tooltip
