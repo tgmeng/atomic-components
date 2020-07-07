@@ -17,7 +17,7 @@ import {
 
 import { ButtonProps, Indent } from './type';
 
-export const getSizeStyle = ({ size = 'normal' }: ButtonProps) => {
+export const getSizeStyle = ({ size = 'normal' }: { size?: Size }) => {
   switch (size) {
     case 'small':
       return css`
