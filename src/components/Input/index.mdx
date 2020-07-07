@@ -1,0 +1,75 @@
+---
+name: Input
+menu: Components
+---
+
+import { Playground, Props } from 'docz';
+import Alert from '../Alert';
+import Input from './';
+
+# Input
+
+## Size
+
+<Playground>
+  <Input size="small" defaultValue="Small" />
+  <Input size="normal" defaultValue="Normal" />
+  <Input size="large" defaultValue="Large" />
+</Playground>
+
+## Prefix & Suffix
+
+<Playground>
+  <Input prefix={<span>Prefix</span>} />
+  <Input suffix={<span>Suffix</span>} />
+</Playground>
+
+## Disabled
+
+<Playground>
+  <Input defaultValue="Disabled" disabled />
+</Playground>
+
+## Clearable
+
+<Playground>
+  {() => {
+    const [value, setValue] = React.useState('🌚 👉');
+    return (
+      <Input
+        value={value}
+        isClearable
+        onChange={(e) => setValue(e.target.value)}
+      />
+    );
+  }}
+</Playground>
+
+<Alert
+  style={{
+    marginTop: 15,
+  }}
+  indent="warning"
+>
+  <>
+    如果 Input 是{' '}
+    <a
+      href="https://reactjs.org/docs/uncontrolled-components.html"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      <i>uncontrolled component</i>
+    </a>
+    , <i>isClearable</i> 将不起作用. 请将 Input 改为 <a
+      href="https://reactjs.org/docs/forms.html#controlled-components"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      <i>controlled component</i>
+    </a>.
+  </>
+</Alert>
+
+## Properties
+
+<Props of={Input} />
