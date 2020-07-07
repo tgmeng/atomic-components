@@ -4,7 +4,10 @@ menu: Components
 ---
 
 import { Playground, Props } from 'docz';
+
 import Alert from '../Alert';
+import Link from '../Link';
+
 import Input from './';
 
 # Input
@@ -53,20 +56,18 @@ import Input from './';
 >
   <>
     如果 Input 是{' '}
-    <a
+    <Link
       href="https://reactjs.org/docs/uncontrolled-components.html"
       target="_blank"
-      rel="noopener noreferrer"
     >
       <i>uncontrolled component</i>
-    </a>
-    , <i>isClearable</i> 将不起作用. 请将 Input 改为 <a
+    </Link>
+    , <i>isClearable</i> 将不起作用. 请将 Input 改为 <Link
       href="https://reactjs.org/docs/forms.html#controlled-components"
       target="_blank"
-      rel="noopener noreferrer"
     >
       <i>controlled component</i>
-    </a>.
+    </Link>.
   </>
 </Alert>
 
