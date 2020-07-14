@@ -1,0 +1,35 @@
+---
+name: Modal
+menu: Components
+---
+
+import { Playground, Props } from 'docz';
+import Button from '../Button';
+import Modal from './index.tsx';
+
+# Modal
+
+<Playground>
+  {() => {
+    const [isVisible, setIsVisible] = React.useState(false);
+    const [isVisible2, setIsVisible2] = React.useState(false);
+    return (
+      <>
+        <Button variant="primary" onClick={() => setIsVisible(true)}>
+          🚪1⃣️
+        </Button>
+        <Modal isVisible={isVisible} style={{ width: 500, height: 200 }}>
+          <Button onClick={() => setIsVisible(false)}>❌</Button>
+          <Button onClick={() => setIsVisible2(true)}>🚪2⃣️</Button>
+        </Modal>
+        <Modal isVisible={isVisible2} style={{ width: 600, height: 100 }}>
+          <Button onClick={() => setIsVisible2(false)}>❌</Button>
+        </Modal>
+      </>
+    );
+  }}
+</Playground>
+
+## Properties
+
+<Props of={Modal} />
