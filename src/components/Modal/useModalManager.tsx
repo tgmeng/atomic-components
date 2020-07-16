@@ -8,19 +8,19 @@ import ModalManager from './manager';
  */
 const manager = new ModalManager();
 
-export function useModalManager(isVisible: boolean): ModalDynamicStyle {
+export function useModalManager(isOpen: boolean): ModalDynamicStyle {
   const [style, update] = React.useState<ModalDynamicStyle>(() => ({
     zIndex: manager.baseZIndex,
     opacity: 0,
   }));
 
   React.useEffect(() => {
-    if (isVisible) {
+    if (isOpen) {
       manager.push(update);
     } else {
       manager.remove(update);
     }
-  }, [isVisible]);
+  }, [isOpen]);
 
   React.useEffect(() => {
     return () => {

@@ -1,5 +1,5 @@
 export interface ModalProps {
-  isVisible: boolean;
+  isOpen: boolean;
 }
 
 export type ModalDynamicStyle = Pick<React.CSSProperties, 'zIndex' | 'opacity'>;

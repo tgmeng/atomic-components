@@ -7,11 +7,11 @@ import ModalWindow from './ModalWindow';
 
 import { useModalManager } from './useModalManager';
 
-const Modal: React.FC<ModalProps> = ({ isVisible, children, ...restProps }) => {
-  const style = useModalManager(isVisible);
+const Modal: React.FC<ModalProps> = ({ isOpen, children, ...restProps }) => {
+  const style = useModalManager(isOpen);
   const wrapperProps = React.useMemo(() => ({ style }), [style]);
 
-  if (!isVisible) {
+  if (!isOpen) {
     return null;
   }
 
