@@ -31,6 +31,7 @@ import Modal from './index.tsx';
   {() => {
     const [isOpen, setIsOpen] = React.useState(false);
     const [isAnotherVisible, setIsAnotherVisible] = React.useState(false);
+    const [isYetAnotherVisible, setIsYetAnotherVisible] = React.useState(false);
     return (
       <>
         <Button variant="primary" onClick={() => setIsOpen(true)}>
@@ -44,6 +45,12 @@ import Modal from './index.tsx';
         </Modal>
         <Modal isOpen={isAnotherVisible} style={{ width: 300, height: 100 }}>
           <Button onClick={() => setIsAnotherVisible(false)}>‍Close</Button>
+          <Button variant="primary" onClick={() => setIsYetAnotherVisible(true)}>
+            Open another
+          </Button>
+        </Modal>
+        <Modal isOpen={isYetAnotherVisible} style={{ width: 200, height: 50 }}>
+          <Button onClick={() => setIsYetAnotherVisible(false)}>‍Close</Button>
         </Modal>
       </>
     );
