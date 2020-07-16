@@ -1,5 +1,6 @@
 import * as React from 'react';
 
+import { ModalDynamicStyle } from './types';
 import ModalManager from './manager';
 
 /**
@@ -7,8 +8,11 @@ import ModalManager from './manager';
  */
 const manager = new ModalManager();
 
-export function useModalManager(isVisible: boolean): number {
-  const [zIndex, update] = React.useState(manager.baseZIndex);
+export function useModalManager(isVisible: boolean): ModalDynamicStyle {
+  const [style, update] = React.useState<ModalDynamicStyle>(() => ({
+    zIndex: manager.baseZIndex,
+    opacity: 0,
+  }));
 
   React.useEffect(() => {
     if (isVisible) {
@@ -24,5 +28,5 @@ export function useModalManager(isVisible: boolean): number {
     };
   }, []);
 
-  return zIndex;
+  return style;
 }

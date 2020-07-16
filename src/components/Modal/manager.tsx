@@ -1,16 +1,19 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 
+import { ModalDynamicStyle } from './types';
 import Overlay from './Overlay';
 
 export default class ModalManager<
-  T extends React.Dispatch<any> = React.Dispatch<number>
+  T extends React.Dispatch<any> = React.Dispatch<ModalDynamicStyle>
 > {
   private stack: T[] = [];
 
-  private lastBodyOverflow = '';
+  private lastOverflow = '';
 
   private overlayContainer: HTMLDivElement | null = null;
+
+  private opacityStep = 1 / 5;
 
   baseZIndex = 1000;
 
@@ -18,42 +21,50 @@ export default class ModalManager<
     return this.baseZIndex + (index + 1) * 2 - 1;
   }
 
+  getOpacity(index: number): number {
+    return 1 - Math.max(this.stack.length - 1 - index, 0) * this.opacityStep;
+  }
+
   updateModals(): void {
     this.stack.forEach((update, index) => {
-      update(this.getZIndex(index));
+      update({
+        opacity: this.getOpacity(index),
+        zIndex: this.getZIndex(index),
+      });
     });
   }
 
   updateOverlay(): void {
     if (this.stack.length === 0) {
+      // un-mount overlay
       if (this.overlayContainer) {
         ReactDOM.unmountComponentAtNode(this.overlayContainer);
         this.overlayContainer.parentNode?.removeChild(this.overlayContainer);
       }
-
       this.overlayContainer = null;
 
-      document.body.style.overflow = this.lastBodyOverflow;
-      this.lastBodyOverflow = '';
-    } else {
-      if (!this.overlayContainer) {
-        this.overlayContainer = document.body.appendChild(
-          document.createElement('div')
-        );
-      }
+      document.body.style.overflow = this.lastOverflow;
+      this.lastOverflow = '';
+      return;
+    }
 
-      if (getComputedStyle(document.body, null).overflow !== 'hidden') {
-        this.lastBodyOverflow = document.body.style.overflow;
-        document.body.style.overflow = 'hidden';
-      }
+    if (!this.overlayContainer) {
+      // mount overlay
+      this.overlayContainer = document.createElement('div');
 
-      ReactDOM.render(
+      this.lastOverflow = document.body.style.overflow;
+      document.body.style.overflow = 'hidden';
+    }
+
+    ReactDOM.render(
+      ReactDOM.createPortal(
         <Overlay
           style={{ zIndex: this.getZIndex(this.stack.length - 1) - 1 }}
         />,
-        this.overlayContainer
-      );
-    }
+        document.body
+      ),
+      this.overlayContainer
+    );
   }
 
   update() {

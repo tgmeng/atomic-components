@@ -20,6 +20,7 @@ export const ModalWrapper = styled('div')`
   justify-content: center;
   align-items: center;
   pointer-events: none;
+  transition: all 0.3s; 
 `;
 
 export const Modal = styled('div')`

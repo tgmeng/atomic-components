@@ -8,14 +8,15 @@ import ModalWindow from './ModalWindow';
 import { useModalManager } from './useModalManager';
 
 const Modal: React.FC<ModalProps> = ({ isVisible, children, ...restProps }) => {
-  const zIndex = useModalManager(isVisible);
+  const style = useModalManager(isVisible);
+  const wrapperProps = React.useMemo(() => ({ style }), [style]);
 
   if (!isVisible) {
     return null;
   }
 
   return ReactDOM.createPortal(
-    <ModalWindow {...restProps} wrapperProps={{ style: { zIndex } }}>
+    <ModalWindow {...restProps} wrapperProps={wrapperProps}>
       {children}
     </ModalWindow>,
     document.body

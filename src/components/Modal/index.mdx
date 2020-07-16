@@ -12,18 +12,38 @@ import Modal from './index.tsx';
 <Playground>
   {() => {
     const [isVisible, setIsVisible] = React.useState(false);
-    const [isVisible2, setIsVisible2] = React.useState(false);
     return (
       <>
         <Button variant="primary" onClick={() => setIsVisible(true)}>
-          🚪1⃣️
+          Open
         </Button>
         <Modal isVisible={isVisible} style={{ width: 500, height: 200 }}>
-          <Button onClick={() => setIsVisible(false)}>❌</Button>
-          <Button onClick={() => setIsVisible2(true)}>🚪2⃣️</Button>
+          <Button onClick={() => setIsVisible(false)}>‍Close</Button>
         </Modal>
-        <Modal isVisible={isVisible2} style={{ width: 600, height: 100 }}>
-          <Button onClick={() => setIsVisible2(false)}>❌</Button>
+      </>
+    );
+  }}
+</Playground>
+
+# Multiple modals
+
+<Playground>
+  {() => {
+    const [isVisible, setIsVisible] = React.useState(false);
+    const [isAnotherVisible, setIsAnotherVisible] = React.useState(false);
+    return (
+      <>
+        <Button variant="primary" onClick={() => setIsVisible(true)}>
+          Open
+        </Button>
+        <Modal isVisible={isVisible} style={{ width: 500, height: 200 }}>
+          <Button onClick={() => setIsVisible(false)}>‍Close</Button>
+          <Button variant="primary" onClick={() => setIsAnotherVisible(true)}>
+            Open another
+          </Button>
+        </Modal>
+        <Modal isVisible={isAnotherVisible} style={{ width: 300, height: 100 }}>
+          <Button onClick={() => setIsAnotherVisible(false)}>‍Close</Button>
         </Modal>
       </>
     );
