@@ -18,7 +18,7 @@ export const ModalWrapper = styled('div')`
     ${position('absolute', 0)};
     display: block;
     ${size('100%')};
-    background-color: rgba(0, 0, 0, 0.35);
+    background-color: rgba(0, 0, 0, 0.45);
     content: '';
   }
 `;
@@ -28,4 +28,11 @@ export const Modal = styled('div')`
   max-width: 100%;
   max-height: 100%;
   background: ${BaseColor.White};
+  position: relative;
+  background-clip: padding-box;
+  border: 0;
+  border-radius: 2px;
+  box-shadow: 0 3px 6px -4px rgba(0, 0, 0, 0.12),
+    0 6px 16px 0 rgba(0, 0, 0, 0.08), 0 9px 28px 8px rgba(0, 0, 0, 0.05);
+  pointer-events: auto;
 `;
