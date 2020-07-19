@@ -1,5 +1,10 @@
 export interface ModalProps {
   isOpen: boolean;
+  shouldCloseWhenPressESC?: boolean;
+  shouldCloseWhenClickBackdrop?: boolean;
+  onClose?: () => void;
 }
 
-export type ModalDynamicStyle = Pick<React.CSSProperties, 'zIndex' | 'opacity'>;
+export interface ModalManagedProps {
+  style: Pick<React.CSSProperties, 'zIndex'>;
+}

@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { ModalDynamicStyle } from './types';
+import { ModalManagedProps, ModalProps } from './types';
 import ModalManager from './manager';
 
 /**
@@ -8,25 +8,43 @@ import ModalManager from './manager';
  */
 const manager = new ModalManager();
 
-export function useModalManager(isOpen: boolean): ModalDynamicStyle {
-  const [style, update] = React.useState<ModalDynamicStyle>(() => ({
-    zIndex: manager.baseZIndex,
-    opacity: 0,
-  }));
+export function useModalManager({
+  isOpen,
+  modalElementRef,
+}: Pick<ModalProps, 'isOpen'> & {
+  modalElementRef: React.RefObject<HTMLDivElement>;
+}): ModalManagedProps {
+  const idRef = React.useRef<number>(0);
+  const [managedProps, updateManagedProps] = React.useState<ModalManagedProps>(
+    () => ({
+      style: {
+        zIndex: manager.baseZIndex,
+      },
+    })
+  );
 
   React.useEffect(() => {
+    const id = manager.register({
+      modalElementRef,
+      updateManagedProps,
+    });
+    idRef.current = id;
+    return () => {
+      manager.unregister(id);
+      idRef.current = 0;
+    };
+  }, [modalElementRef]);
+
+  React.useEffect(() => {
+    if (!idRef.current) {
+      return;
+    }
     if (isOpen) {
-      manager.push(update);
+      manager.pushToStack(idRef.current);
     } else {
-      manager.remove(update);
+      manager.removeFromStack(idRef.current);
     }
   }, [isOpen]);
 
-  React.useEffect(() => {
-    return () => {
-      manager.remove(update);
-    };
-  }, []);
-
-  return style;
+  return managedProps;
 }
