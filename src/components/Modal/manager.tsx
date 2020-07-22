@@ -1,4 +1,5 @@
 import * as React from 'react';
+import update from 'immutability-helper';
 
 import { ModalManagedProps } from './types';
 
@@ -8,112 +9,155 @@ export interface ModalData {
   updateManagedProps: React.Dispatch<React.SetStateAction<ModalManagedProps>>;
 }
 
-export interface ModalManagerStackItem {
+export interface ModalStackItem {
   id: number;
   lastActiveElement: Element | null;
 }
 
-export default class ModalManager {
-  private id = 0;
+export interface ModalManager {
+  id: number;
+  modalMap: Map<number, ModalData>;
+  stack: ModalStackItem[];
+  lastOverflow: string;
+  baseZIndex: number;
+}
 
-  private modalMap = new Map<number, ModalData>();
+const ModalManagerModel = {
+  create(options: { zIndex: number }): ModalManager {
+    return {
+      id: 0,
+      modalMap: new Map<number, ModalData>(),
+      stack: [],
+      lastOverflow: '',
+      baseZIndex: options.zIndex,
+    };
+  },
 
-  private stack: ModalManagerStackItem[] = [];
+  getZIndex(model: ModalManager, index: number): number {
+    return model.baseZIndex + index;
+  },
 
-  private lastOverflow = '';
-
-  baseZIndex = 1000;
-
-  constructor(options?: { zIndex: number }) {
-    if (options?.zIndex) {
-      this.baseZIndex = options.zIndex;
-    }
-  }
-
-  getZIndex(index: number): number {
-    return this.baseZIndex + index;
-  }
-
-  updateModals(): void {
-    this.stack.forEach(({ id }, index) => {
-      const modalData = this.modalMap.get(id);
+  updateModalsWithEffect(model: ModalManager): void {
+    model.stack.forEach(({ id }, index) => {
+      const modalData = model.modalMap.get(id);
       modalData?.updateManagedProps((state) => ({
         ...state,
         style: {
-          zIndex: this.getZIndex(index),
+          zIndex: this.getZIndex(model, index),
         },
       }));
     });
-  }
+  },
 
-  updateDocumentBodyOverflow(state: {
-    isEntering: boolean;
-    isLeaving: boolean;
-  }) {
+  updateDocumentBodyOverflowWithEffect(
+    model: ModalManager,
+    prevModel: ModalManager
+  ): ModalManager {
+    const state = {
+      isEntering: model.stack.length > 0 && prevModel.stack.length === 0,
+      isLeaving: model.stack.length === 0 && prevModel.stack.length > 0,
+    };
+
+    let lastOverflow;
+
     if (state.isEntering) {
-      this.lastOverflow = getComputedStyle(document.body, null).overflow;
+      lastOverflow = getComputedStyle(document.body, null).overflow;
       document.body.style.overflow = 'hidden';
     } else if (state.isLeaving) {
-      document.body.style.overflow = this.lastOverflow;
-      this.lastOverflow = '';
+      document.body.style.overflow = model.lastOverflow;
+      lastOverflow = '';
     }
-  }
 
-  update(newStack: ModalManagerStackItem[]) {
-    const state = {
-      isEntering: newStack.length > 0 && this.stack.length === 0,
-      isLeaving: newStack.length === 0 && this.stack.length > 0,
-    };
+    return lastOverflow !== undefined
+      ? update(model, { lastOverflow: { $set: lastOverflow } })
+      : model;
+  },
 
-    this.stack = newStack;
+  update(model: ModalManager, prevModel: ModalManager): ModalManager {
+    this.updateModalsWithEffect(model);
+    return this.updateDocumentBodyOverflowWithEffect(model, prevModel);
+  },
 
-    this.updateModals();
-    this.updateDocumentBodyOverflow(state);
-  }
-
-  register(data: Omit<ModalData, 'id'>): number {
-    this.id += 1;
+  register(
+    model: ModalManager,
+    data: Omit<ModalData, 'id'>
+  ): [number, ModalManager] {
+    let { id } = model;
+    id += 1;
     const modalData = {
       ...data,
-      id: this.id,
+      id,
     };
-    this.modalMap.set(this.id, modalData);
-    return this.id;
-  }
+    return [
+      id,
+      update(model, {
+        id: {
+          $set: id,
+        },
+        modalMap: {
+          $add: [[id, modalData]],
+        },
+      }),
+    ];
+  },
 
-  unregister(id: number): boolean {
-    this.removeFromStack(id);
-    return this.modalMap.delete(id);
-  }
+  unregister(model: ModalManager, id: number): ModalManager {
+    return update(this.removeFromStack(model, id), {
+      modalMap: {
+        $remove: [id],
+      },
+    });
+  },
 
-  pushToStack(id: number): void {
-    if (!this.modalMap.get(id)) {
-      return;
+  pushToStack(model: ModalManager, id: number): ModalManager {
+    if (!model.modalMap.get(id)) {
+      return model;
     }
 
-    let newStack = this.stack;
-    if (newStack.find(({ id: _id }) => _id === id)) {
-      newStack = newStack.filter(({ id: _id }) => _id !== id);
+    let localModel = model;
+
+    const index = localModel.stack.findIndex(({ id: _id }) => _id === id);
+    if (index !== -1) {
+      localModel = update(model, {
+        stack: {
+          $splice: [[index, 1]],
+        },
+      });
     }
 
     // save last active element
     const stackItem = { id, lastActiveElement: document.activeElement };
-    this.modalMap.get(id)?.modalElementRef.current?.focus();
+    localModel.modalMap.get(id)?.modalElementRef.current?.focus();
 
-    this.update([...newStack, stackItem]);
-  }
+    return this.update(
+      update(localModel, {
+        stack: {
+          $push: [stackItem],
+        },
+      }),
+      model
+    );
+  },
 
-  removeFromStack(id: number): void {
-    if (!this.modalMap.get(id)) {
-      return;
+  removeFromStack(model: ModalManager, id: number): ModalManager {
+    if (!model.modalMap.get(id)) {
+      return model;
     }
 
+    const index = model.stack.findIndex(({ id: _id }) => _id === id);
+
     // restore last active element
-    (this.stack.find(({ id: _id }) => _id === id)
-      ?.lastActiveElement as HTMLElement)?.focus();
+    (model.stack[index]?.lastActiveElement as HTMLElement)?.focus();
 
-    const newStack = this.stack.filter(({ id: _id }) => _id !== id);
+    return this.update(
+      update(model, {
+        stack: {
+          $splice: [[index, 1]],
+        },
+      }),
+      model
+    );
+  },
+};
 
-    this.update(newStack);
-  }
-}
+export default ModalManagerModel;

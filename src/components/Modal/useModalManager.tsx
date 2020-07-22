@@ -1,12 +1,16 @@
 import * as React from 'react';
 
+import { usePrevious } from '../../hooks/usePrevious';
+
 import { ModalManagedProps, ModalProps } from './types';
-import ModalManager from './manager';
+import ModalManagerModel from './manager';
 
 /**
  * Modal manager singleton
  */
-const manager = new ModalManager();
+let manager = ModalManagerModel.create({
+  zIndex: 1000,
+});
 
 export function useModalManager({
   isOpen,
@@ -15,6 +19,7 @@ export function useModalManager({
   modalElementRef: React.RefObject<HTMLDivElement>;
 }): ModalManagedProps {
   const idRef = React.useRef<number>(0);
+  const prevIsOpen = usePrevious(isOpen);
   const [managedProps, updateManagedProps] = React.useState<ModalManagedProps>(
     () => ({
       style: {
@@ -24,13 +29,15 @@ export function useModalManager({
   );
 
   React.useEffect(() => {
-    const id = manager.register({
+    let id: number;
+    [id, manager] = ModalManagerModel.register(manager, {
       modalElementRef,
       updateManagedProps,
     });
+
     idRef.current = id;
     return () => {
-      manager.unregister(id);
+      manager = ModalManagerModel.unregister(manager, id);
       idRef.current = 0;
     };
   }, [modalElementRef]);
@@ -40,11 +47,12 @@ export function useModalManager({
       return;
     }
     if (isOpen) {
-      manager.pushToStack(idRef.current);
-    } else {
-      manager.removeFromStack(idRef.current);
+      manager = ModalManagerModel.pushToStack(manager, idRef.current);
+    } else if (prevIsOpen) {
+      // check if the modal was opened before
+      manager = ModalManagerModel.removeFromStack(manager, idRef.current);
     }
-  }, [isOpen]);
+  }, [isOpen, prevIsOpen]);
 
   return managedProps;
 }
