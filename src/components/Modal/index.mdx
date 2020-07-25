@@ -5,20 +5,24 @@ menu: Components
 
 import { Playground, Props } from 'docz';
 import Button from '../Button';
-import useModal from './useModal.ts';
 import Modal from './index.tsx';
 
 # Modal
 
+## Basic
 <Playground>
   {() => {
-    const [modalProps, setIsOpen] = useModal(false);
+    const [isOpen, setIsOpen] = React.useState(false);
     return (
       <>
         <Button variant="primary" onClick={() => setIsOpen(true)}>
           Open
         </Button>
-        <Modal {...modalProps} style={{ width: 500, height: 200 }}>
+        <Modal
+          isOpen={isOpen}
+          style={{ width: 500, height: 200 }}
+          onClose={() => setIsOpen(false)}
+        >
           <Button onClick={() => setIsOpen(false)}>‍Close</Button>
         </Modal>
       </>
@@ -26,34 +30,43 @@ import Modal from './index.tsx';
   }}
 </Playground>
 
-# Multiple modals
+## Multiple modals
 
 <Playground>
   {() => {
-    const [modalProps, setIsOpen] = useModal(false);
-    const [anotherModalProps, setIsAnotherOpen] = useModal(false);
-    const [yetAnotherModalProps, setIsYetAnotherOpen] = useModal(false);
+    const [isOpen, setIsOpen] = React.useState(false);
+    const [isAnotherOpen, setIsAnotherOpen] = React.useState(false);
+    const [isYetAnotherOpen, setIsYetAnotherOpen] = React.useState(false);
     return (
       <>
         <Button variant="primary" onClick={() => setIsOpen(true)}>
           Open
         </Button>
-        <Modal {...modalProps} style={{ width: 500, height: 200 }}>
+        <Modal
+          isOpen={isOpen}
+          style={{ width: 500, height: 200 }}
+          onClose={() => setIsOpen(false)}
+        >
           <Button onClick={() => setIsOpen(false)}>‍Close</Button>
           <Button variant="primary" onClick={() => setIsAnotherOpen(true)}>
             Open another
           </Button>
         </Modal>
-        <Modal {...anotherModalProps} style={{ width: 300, height: 100 }}>
+        <Modal
+          isOpen={isAnotherOpen}
+          style={{ width: 300, height: 100 }}
+          onClose={() => setIsAnotherOpen(false)}
+        >
           <Button onClick={() => setIsAnotherOpen(false)}>‍Close</Button>
-          <Button
-            variant="primary"
-            onClick={() => setIsYetAnotherOpen(true)}
-          >
+          <Button variant="primary" onClick={() => setIsYetAnotherOpen(true)}>
             Open another
           </Button>
         </Modal>
-        <Modal {...yetAnotherModalProps} style={{ width: 200, height: 50 }}>
+        <Modal
+          isOpen={isYetAnotherOpen}
+          style={{ width: 200, height: 50 }}
+          onClose={() => setIsYetAnotherOpen(false)}
+        >
           <Button onClick={() => setIsYetAnotherOpen(false)}>‍Close</Button>
         </Modal>
       </>
