@@ -1,0 +1,68 @@
+---
+name: Dialog
+menu: Components
+---
+
+import { Playground, Props } from 'docz';
+import Button from '../../Button';
+import Dialog from './';
+import QuickDialog from './QuickDialog';
+
+# Dialog
+
+## Basic
+
+<Playground>
+  {() => {
+    const [isOpen, setIsOpen] = React.useState(false);
+    const onClose = () => setIsOpen(false);
+    return (
+      <>
+        <Button variant="primary" onClick={() => setIsOpen(true)}>
+          Open
+        </Button>
+        <Dialog isOpen={isOpen} onClose={onClose}>
+          <Dialog.Header onClickClose={onClose}>Title</Dialog.Header>
+          <Dialog.Content>
+            <p>Content</p>
+          </Dialog.Content>
+          <Dialog.Actions>
+            <Button onClick={onClose}>取消</Button>
+            <Button variant="primary" onClick={onClose}>
+              确定
+            </Button>
+          </Dialog.Actions>
+        </Dialog>
+      </>
+    );
+  }}
+</Playground>
+
+## Properties
+
+<Props of={Dialog} />
+
+## QuickDialog
+
+### Basic
+
+<Playground>
+  {() => {
+    const [isOpen, setIsOpen] = React.useState(false);
+    const onClose = () => setIsOpen(false);
+    return (
+      <>
+        <Button variant="primary" onClick={() => setIsOpen(true)}>
+          Open
+        </Button>
+        <QuickDialog isOpen={isOpen} title="Title" onClose={onClose}>
+          <p>Content</p>
+        </QuickDialog>
+      </>
+    );
+  }}
+</Playground>
+
+### Properties
+
+<Props of={QuickDialog} />
