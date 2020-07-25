@@ -4,10 +4,12 @@ import { position, size } from 'polished';
 import { BaseColor } from '../../styles';
 
 export const ModalWrapper = styled('div')`
+  box-sizing: border-box;
   position: fixed;
   top: 0%;
   left: 0%;
   ${size('100%')};
+  padding: 10px;
   display: flex;
   justify-content: center;
   align-items: center;
