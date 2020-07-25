@@ -1,7 +1,7 @@
-export type Indent = 'info' | 'success' | 'danger' | 'warning';
+export type Intent = 'info' | 'success' | 'danger' | 'warning';
 
 export interface AlertProps {
-  indent?: Indent;
+  intent?: Intent;
   message?: React.ReactNode;
   description?: React.ReactNode;
 }

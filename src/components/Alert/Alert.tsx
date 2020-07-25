@@ -15,7 +15,7 @@ import {
   Icon,
 } from './style';
 
-const iconByIndent = {
+const iconByIntent = {
   info: createCommonStyledIcon(InfoIcon),
   success: createCommonStyledIcon(SuccessIcon),
   danger: createCommonStyledIcon(DangerIcon),
@@ -23,13 +23,13 @@ const iconByIndent = {
 };
 
 const Alert: React.SFC<AlertProps> = ({
-  indent = 'info',
+  intent = 'info',
   description,
   children,
   ...restProps
 }) => (
-  <StyledAlert indent={indent} description={description} {...restProps}>
-    <Icon indent={indent}>{React.createElement(iconByIndent[indent])}</Icon>
+  <StyledAlert intent={intent} description={description} {...restProps}>
+    <Icon intent={intent}>{React.createElement(iconByIntent[intent])}</Icon>
     <AlertMessage>{children}</AlertMessage>
     {description && <AlertDescription>{description}</AlertDescription>}
   </StyledAlert>

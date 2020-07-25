@@ -15,7 +15,7 @@ import {
   TextColor,
 } from '../../styles';
 
-import { ButtonProps, Indent } from './type';
+import { ButtonProps, Intent } from './type';
 
 export const getSizeStyle = ({ size = 'normal' }: { size?: Size }) => {
   switch (size) {
@@ -100,7 +100,7 @@ export const getDisabledStyle = ({
     }
   `;
 
-const colorByIndent: { [key in Indent]: string } = {
+const colorByIntent: { [key in Intent]: string } = {
   default: Color.Primary,
   success: Color.Success,
   danger: Color.Danger,
@@ -211,8 +211,8 @@ const getLinkButtonStyle = ({
 `;
 
 const getVariantStyle = (props: ButtonProps) => {
-  const { variant = 'default', indent = 'default' } = props;
-  const color = colorByIndent[indent];
+  const { variant = 'default', intent = 'default' } = props;
+  const color = colorByIntent[intent];
 
   let variantStyle = null;
 
@@ -226,7 +226,7 @@ const getVariantStyle = (props: ButtonProps) => {
 
     case 'dashed':
       variantStyle = getNormalButtonStyle({
-        shouldUseBaseColorWhenNormal: indent === 'default',
+        shouldUseBaseColorWhenNormal: intent === 'default',
         color,
         borderStyle: 'dashed',
       });
@@ -234,7 +234,7 @@ const getVariantStyle = (props: ButtonProps) => {
 
     case 'link':
       variantStyle = getLinkButtonStyle({
-        shouldUseBaseColorWhenNormal: indent === 'default',
+        shouldUseBaseColorWhenNormal: intent === 'default',
         color,
       });
       break;
@@ -242,7 +242,7 @@ const getVariantStyle = (props: ButtonProps) => {
     case 'default':
     default:
       variantStyle = getNormalButtonStyle({
-        shouldUseBaseColorWhenNormal: indent === 'default',
+        shouldUseBaseColorWhenNormal: intent === 'default',
         color,
         borderStyle: 'solid',
       });
