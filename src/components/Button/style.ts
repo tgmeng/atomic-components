@@ -290,6 +290,6 @@ export const IconSpan = styled('span')`
   margin-right: 5px;
 `;
 
-export const ReloadIconStyle = css`
+export const reloadIconStyle = css`
   animation: ${spin} 1s linear infinite;
 `;
