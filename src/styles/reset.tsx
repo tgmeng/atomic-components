@@ -9,6 +9,12 @@ export const resetBox = css`
   padding: 0;
 `;
 
+export const resetDecoration = css`
+  background: 0;
+  outline: 0;
+  border: 0;
+`;
+
 export const resetTypography = css`
   color: ${TextColor.Base};
   font-size: ${FontSize.Base};
