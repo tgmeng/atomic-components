@@ -2,15 +2,20 @@ import * as React from 'react';
 
 import Button from '../../Button';
 
-import Dialog from '.';
+import { ModalWithOpenStaticModalFn } from '../types';
+import createOpenStaticModal from '../createOpenStaticModal';
+
 import { QuickDialogProps } from './type';
+import Dialog from '.';
+
+export type QuickDialogInterface = ModalWithOpenStaticModalFn<QuickDialogProps>;
 
 const initialState = {
   isConfirmLoading: false,
   isCancelLoading: false,
 };
 
-const QuickDialog: React.FC<QuickDialogProps> = ({
+const QuickDialog: QuickDialogInterface = ({
   title,
   actions,
   children,
@@ -76,5 +81,7 @@ const QuickDialog: React.FC<QuickDialogProps> = ({
     </Dialog>
   );
 };
+
+QuickDialog.open = createOpenStaticModal(QuickDialog);
 
 export default QuickDialog;
