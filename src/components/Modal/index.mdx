@@ -75,6 +75,37 @@ import Modal from './index.tsx';
   }}
 </Playground>
 
+### Modal.Open 方法
+
+<Playground>
+  {() => {
+    const render = ({ hasRandomSize = false } = {}) => (
+      <div
+        style={
+          hasRandomSize
+            ? {
+                width: Math.floor(Math.random() * 400) + 100,
+                height: Math.floor(Math.random() * 400) + 100,
+              }
+            : undefined
+        }
+      >
+        <Button
+          variant="primary"
+          onClick={() =>
+            Modal.open({
+              children: render({ hasRandomSize: true }),
+            })
+          }
+        >
+          Open
+        </Button>
+      </div>
+    );
+    return render({ hasRandomSize: false });
+  }}
+</Playground>
+
 ## 属性
 
 <Props of={Modal} />

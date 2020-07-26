@@ -1,12 +1,15 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 
-import { ModalProps } from './types';
+import { ModalProps, ModalWithOpenStaticModalFn } from './types';
 import { Modal as StyledModal, ModalWrapper, Backdrop } from './style';
 
 import { useModalManager } from './useModalManager';
+import createOpenStaticModal from './createOpenStaticModal';
 
-const Modal: React.FC<ModalProps> = ({
+export type ModalInterface = ModalWithOpenStaticModalFn<ModalProps>;
+
+const Modal: ModalInterface = ({
   isOpen,
   shouldCloseWhenPressESC = true,
   shouldCloseWhenClickBackdrop = true,
@@ -54,5 +57,7 @@ const Modal: React.FC<ModalProps> = ({
     document.body
   );
 };
+
+Modal.open = createOpenStaticModal(Modal);
 
 export default Modal;
