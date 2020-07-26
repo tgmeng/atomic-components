@@ -13,7 +13,7 @@ yarn docz:dev # npm run docz:dev
   - [x] Input
   - [x] Link
   - [x] Modal
-  - [ ] Dialog
+  - [x] Dialog
   - [ ] Popover
   - [ ] Tooltip
   - [ ] Message
