@@ -52,7 +52,8 @@ export function useModalManager({
       // check if the modal was opened before
       manager = ModalManagerModel.removeFromStack(manager, idRef.current);
     }
-  }, [isOpen, prevIsOpen]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isOpen]);
 
   return managedProps;
 }
