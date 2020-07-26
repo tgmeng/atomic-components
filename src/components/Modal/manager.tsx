@@ -102,11 +102,14 @@ const ModalManagerModel = {
   },
 
   unregister(model: ModalManager, id: number): ModalManager {
-    return update(this.removeFromStack(model, id), {
-      modalMap: {
-        $remove: [id],
-      },
-    });
+    return this.removeFromStack(
+      update(model, {
+        modalMap: {
+          $remove: [id],
+        },
+      }),
+      id
+    );
   },
 
   pushToStack(model: ModalManager, id: number): ModalManager {
