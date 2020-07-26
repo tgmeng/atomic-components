@@ -3,7 +3,8 @@ import * as React from 'react';
 import { createCommonStyledIcon } from '../../Icon/style';
 import { ReactComponent as OriginalCloseIcon } from '../../../resources/svgs/close.svg';
 
-import { ModalProps } from '../types';
+import { ModalProps, ModalWithOpenStaticModalFn } from '../types';
+import createOpenStaticModal from '../createOpenStaticModal';
 import Modal from '../Modal';
 
 import {
@@ -35,13 +36,13 @@ const Header: React.FC<
   </StyledHeader>
 );
 
-interface Dialog extends React.FC<ModalProps> {
+export type DialogInterface = ModalWithOpenStaticModalFn<ModalProps> & {
   Header: typeof Header;
   Content: typeof Content;
   Actions: typeof Actions;
-}
+};
 
-const Dialog: Dialog = ({ children, ...restProps }) => {
+const Dialog: DialogInterface = ({ children, ...restProps }) => {
   return (
     <Modal {...restProps} css={dialogStyle}>
       {children}
@@ -52,5 +53,7 @@ const Dialog: Dialog = ({ children, ...restProps }) => {
 Dialog.Header = Header;
 Dialog.Content = Content;
 Dialog.Actions = Actions;
+
+Dialog.open = createOpenStaticModal(Dialog);
 
 export default Dialog;
