@@ -10,12 +10,12 @@ export interface ModalManagedProps {
 }
 
 export interface StaticModal<P> {
-  update(props: Partial<P>): void;
+  update(props: Partial<React.PropsWithChildren<P>>): void;
   close(): void;
 }
 
 export interface OpenStaticModalFn<P> {
-  (initialState?: P): StaticModal<P>;
+  (initialState?: Partial<React.PropsWithChildren<P>>): StaticModal<P>;
 }
 
 export type ModalWithOpenStaticModalFn<P extends ModalProps> = React.FC<P> & {
