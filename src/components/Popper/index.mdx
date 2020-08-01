@@ -1,0 +1,93 @@
+---
+name: Popper
+menu: Components
+---
+
+import { Playground, Props } from 'docz';
+import Button from '../Button';
+import Popper from './Popper';
+
+# Popper
+
+## 基本用法
+
+<Playground>
+  <Popper content={<div>Text</div>}>
+    <Button>Hover me</Button>
+  </Popper>
+</Playground>
+
+## 不同位置
+
+<Playground>
+  <div>
+    <Popper placement="top-start" content={<div>Text</div>}>
+      <Button>Top start</Button>
+    </Popper>
+    <Popper placement="top" content={<div>Text</div>}>
+      <Button>Top</Button>
+    </Popper>
+    <Popper placement="top-end" content={<div>Text</div>}>
+      <Button>Top end</Button>
+    </Popper>
+  </div>
+  <div>
+    <Popper placement="left-start" content={<div>Text</div>}>
+      <Button>Left start</Button>
+    </Popper>
+    <Popper placement="left" content={<div>Text</div>}>
+      <Button>Left</Button>
+    </Popper>
+    <Popper placement="left-end" content={<div>Text</div>}>
+      <Button>Left end</Button>
+    </Popper>
+  </div>
+  <div>
+    <Popper placement="right-start" content={<div>Text</div>}>
+      <Button>Right start</Button>
+    </Popper>
+    <Popper placement="right" content={<div>Text</div>}>
+      <Button>Right</Button>
+    </Popper>
+    <Popper placement="right-end" content={<div>Text</div>}>
+      <Button>Right end</Button>
+    </Popper>
+  </div>
+  <div>
+    <Popper placement="bottom-start" content={<div>Text</div>}>
+      <Button>Bottom start</Button>
+    </Popper>
+    <Popper placement="bottom" content={<div>Text</div>}>
+      <Button>Bottom</Button>
+    </Popper>
+    <Popper placement="bottom-end" content={<div>Text</div>}>
+      <Button>Bottom end</Button>
+    </Popper>
+  </div>
+</Playground>
+
+## 不同触发方式
+
+<Playground>
+  {() => {
+    const [isOpen, setIsOpen] = React.useState(false);
+    return (
+      <>
+        <Popper trigger="hover" content={<div>text</div>}>
+          <Button>Hover me (default)</Button>
+        </Popper>
+        <Popper trigger="click" content={<div>text</div>}>
+          <Button>Click me</Button>
+        </Popper>
+        <Popper trigger="focus" content={<div>text</div>}>
+          <Button>Focus me</Button>
+        </Popper>
+        <Popper isOpen={isOpen} trigger="manual" content={<div>text</div>}>
+          <div>Manual</div>
+        </Popper>
+        <Button onClick={() => setIsOpen(true)}>Open</Button>
+        <Button onClick={() => setIsOpen(false)}>Close</Button>
+      </>
+    );
+  }}
+</Playground>
