@@ -9,6 +9,8 @@ const Popper: React.FC<PopperProps> = ({
   isOpen: isOpenExternal,
   trigger,
   content,
+  contentClassName,
+  arrowClassName,
   children,
   ...restProps
 }) => {
@@ -114,11 +116,16 @@ const Popper: React.FC<PopperProps> = ({
         ReactDOM.createPortal(
           <Content
             {...attributes.popper}
+            className={contentClassName}
             ref={setPopperElement}
             style={styles.popper}
           >
             {content}
-            <Arrow ref={setArrowElement} style={styles.arrow} />
+            <Arrow
+              ref={setArrowElement}
+              className={arrowClassName}
+              style={styles.arrow}
+            />
           </Content>,
           document.body
         )}

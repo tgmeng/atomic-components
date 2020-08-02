@@ -8,11 +8,7 @@ export interface PopperProps {
   placement?: Placement;
   strategy?: PositioningStrategy;
   trigger?: Trigger | Trigger[] | 'manual';
+  contentClassName?: string;
+  arrowClassName?: string;
   children: React.ReactElement;
 }
-
-export interface TooltipProps extends PopperProps {
-  title: React.ReactNode;
-}
-
-export interface PopoverProps extends PopperProps {}
