@@ -4,7 +4,7 @@ import styled from '@emotion/styled';
  * Content
  */
 export const Content = styled('div')`
-  padding: 10px;
+  box-sizing: border-box;
   background-color: #fff;
   background-clip: padding-box;
   border-radius: 2px;

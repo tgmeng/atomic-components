@@ -15,7 +15,6 @@ const Popper: React.FC<PopperProps> = ({
   ...restProps
 }) => {
   const [isOpenInternal, setIsOpen] = React.useState(false);
-  const isOpen = trigger === 'manual' ? isOpenExternal : isOpenInternal;
 
   const [
     referenceElement,
@@ -56,7 +55,7 @@ const Popper: React.FC<PopperProps> = ({
       case 'click':
         return {
           onClick() {
-            setIsOpen(!isOpen);
+            setIsOpen(!isOpenInternal);
           },
         };
       case 'focus':
@@ -68,8 +67,6 @@ const Popper: React.FC<PopperProps> = ({
             setIsOpen(false);
           },
         };
-      case 'manual':
-        return {};
       case 'hover':
       default:
         return {
@@ -81,7 +78,7 @@ const Popper: React.FC<PopperProps> = ({
           },
         };
     }
-  }, [isOpen, trigger]);
+  }, [isOpenInternal, trigger]);
 
   // eslint-disable-next-line consistent-return
   React.useEffect(() => {
@@ -96,7 +93,7 @@ const Popper: React.FC<PopperProps> = ({
         document.removeEventListener('click', handler);
       };
     }
-  }, [trigger, isOpen, popperElement?.contains]);
+  }, [trigger, popperElement?.contains]);
 
   React.useLayoutEffect(() => {
     update?.();
@@ -105,6 +102,8 @@ const Popper: React.FC<PopperProps> = ({
   if (!children || !content) {
     return null;
   }
+
+  const isOpen = isOpenExternal !== undefined ? isOpenExternal : isOpenInternal;
 
   return (
     <>

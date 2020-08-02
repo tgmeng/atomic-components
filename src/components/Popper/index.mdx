@@ -82,7 +82,7 @@ import Popper from './Popper';
         <Popper trigger="focus" content={<div>text</div>}>
           <Button>Focus me</Button>
         </Popper>
-        <Popper isOpen={isOpen} trigger="manual" content={<div>text</div>}>
+        <Popper isOpen={isOpen} content={<div>text</div>}>
           <div>Manual</div>
         </Popper>
         <Button onClick={() => setIsOpen(true)}>Open</Button>
@@ -91,3 +91,7 @@ import Popper from './Popper';
     );
   }}
 </Playground>
+
+## 属性
+
+<Props of={Popper} />

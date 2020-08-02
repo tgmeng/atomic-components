@@ -7,7 +7,7 @@ export interface PopperProps {
   content: React.ReactElement;
   placement?: Placement;
   strategy?: PositioningStrategy;
-  trigger?: Trigger | Trigger[] | 'manual';
+  trigger?: Trigger;
   contentClassName?: string;
   arrowClassName?: string;
   children: React.ReactElement;
