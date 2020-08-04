@@ -1,6 +1,6 @@
 import { ModalProps } from '../types';
 
-export interface QuickDialogProps extends ModalProps {
+export interface DialogProps extends ModalProps {
   title?: React.ReactNode;
   actions?: React.ReactNode;
   isCloseHidden?: boolean;

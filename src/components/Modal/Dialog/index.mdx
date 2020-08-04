@@ -6,7 +6,6 @@ menu: Components
 import { Playground, Props } from 'docz';
 import Button from '../../Button';
 import Dialog from './';
-import RawDialog from './RawDialog';
 
 ## Dialog
 
@@ -28,13 +27,7 @@ import RawDialog from './RawDialog';
   }}
 </Playground>
 
-### 属性
-
-<Props of={Dialog} />
-
-# RawDialog
-
-## 基本用法
+## Raw
 
 <Playground>
   {() => {
@@ -45,23 +38,23 @@ import RawDialog from './RawDialog';
         <Button variant="primary" onClick={() => setIsOpen(true)}>
           Open
         </Button>
-        <RawDialog isOpen={isOpen} onClose={onClose}>
-          <RawDialog.Header onClickClose={onClose}>Title</RawDialog.Header>
-          <RawDialog.Content>
+        <Dialog.Container isOpen={isOpen} onClose={onClose}>
+          <Dialog.Header onClickClose={onClose}>Title</Dialog.Header>
+          <Dialog.Content>
             <p>Content</p>
-          </RawDialog.Content>
-          <RawDialog.Actions>
+          </Dialog.Content>
+          <Dialog.Actions>
             <Button onClick={onClose}>取消</Button>
             <Button variant="primary" onClick={onClose}>
               确定
             </Button>
-          </RawDialog.Actions>
-        </RawDialog>
+          </Dialog.Actions>
+        </Dialog.Container>
       </>
     );
   }}
 </Playground>
 
-## 属性
+### 属性
 
-<Props of={RawDialog} />
+<Props of={Dialog} />

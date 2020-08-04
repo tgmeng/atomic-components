@@ -9,7 +9,7 @@ import {
   resetBox,
 } from '../../../styles';
 
-export const dialogStyle = css`
+export const Dialog = styled('div')`
   width: 520px;
 `;
 

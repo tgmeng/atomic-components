@@ -1,21 +1,58 @@
 import * as React from 'react';
 
+import { createCommonStyledIcon } from '../../Icon/style';
+import { ReactComponent as OriginalCloseIcon } from '../../../resources/svgs/close.svg';
 import Button from '../../Button';
 
-import { ModalWithOpenStaticModalFn } from '../types';
 import createOpenStaticModal from '../createOpenStaticModal';
+import Modal from '../Modal';
+import { ModalWithOpenStaticModalFn } from '../types';
 
-import { QuickDialogProps } from './type';
-import RawDialog from './RawDialog';
+import { DialogProps } from './type';
+import {
+  Dialog as StyledDialog,
+  Header as StyledHeader,
+  Content,
+  Actions,
+  CloseButton,
+  titleStyle,
+} from './style';
 
-export type QuickDialogInterface = ModalWithOpenStaticModalFn<QuickDialogProps>;
+const Container = StyledDialog.withComponent(Modal);
+
+const CloseIcon = createCommonStyledIcon(OriginalCloseIcon);
+
+const Header: React.FC<
+  {
+    isCloseHidden?: boolean;
+    onClickClose?: (
+      event: React.MouseEvent<HTMLButtonElement, MouseEvent>
+    ) => void;
+  } & React.HTMLAttributes<HTMLDivElement>
+> = ({ isCloseHidden, onClickClose, children, ...restProps }) => (
+  <StyledHeader {...restProps}>
+    <div css={titleStyle}>{children}</div>
+    {!isCloseHidden && (
+      <CloseButton onClick={onClickClose}>
+        <CloseIcon />
+      </CloseButton>
+    )}
+  </StyledHeader>
+);
+
+export type DialogInterface = ModalWithOpenStaticModalFn<DialogProps> & {
+  Container: typeof Container;
+  Header: typeof Header;
+  Content: typeof Content;
+  Actions: typeof Actions;
+};
 
 const initialState = {
   isConfirmLoading: false,
   isCancelLoading: false,
 };
 
-const Dialog: QuickDialogInterface = ({
+const Dialog: DialogInterface = ({
   title,
   actions,
   children,
@@ -72,15 +109,20 @@ const Dialog: QuickDialogInterface = ({
   );
 
   return (
-    <RawDialog {...restProps} onClose={onClose}>
-      <RawDialog.Header isCloseHidden={isCloseHidden} onClickClose={onClose}>
+    <Container {...restProps} onClose={onClose}>
+      <Header isCloseHidden={isCloseHidden} onClickClose={onClose}>
         {title}
-      </RawDialog.Header>
-      <RawDialog.Content>{children}</RawDialog.Content>
-      <RawDialog.Actions>{localActions}</RawDialog.Actions>
-    </RawDialog>
+      </Header>
+      <Content>{children}</Content>
+      <Actions>{localActions}</Actions>
+    </Container>
   );
 };
+
+Dialog.Container = Container;
+Dialog.Header = Header;
+Dialog.Content = Content;
+Dialog.Actions = Actions;
 
 Dialog.open = createOpenStaticModal(Dialog);
 
