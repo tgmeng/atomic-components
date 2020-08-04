@@ -11,7 +11,7 @@ const ReloadIcon = createCommonStyledIcon(OriginalReloadIcon);
 
 const Button = React.forwardRef<ButtonRef, ButtonProps>(
   ({ children, loading, ...props }, ref) => (
-    <StyledButton ref={ref} {...props} loading={loading}>
+    <StyledButton ref={ref} {...props}>
       {loading && (
         <IconSpan>
           <ReloadIcon css={reloadIconStyle} />
