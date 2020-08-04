@@ -5,7 +5,12 @@ import { usePopper } from 'react-popper';
 import { PopperProps } from './type';
 import { Content, Arrow } from './style';
 
-const Popper: React.FC<PopperProps> = ({
+export interface PopperInterface extends React.FC<PopperProps> {
+  Content: typeof Content;
+  Arrow: typeof Arrow;
+}
+
+const Popper: PopperInterface = ({
   isOpen: isOpenExternal,
   trigger,
   content,
@@ -30,25 +35,23 @@ const Popper: React.FC<PopperProps> = ({
     null
   );
 
-  const { styles, attributes, update } = usePopper(
-    referenceElement,
-    popperElement,
-    {
-      ...restProps,
-      modifiers: [
-        {
-          name: 'arrow',
-          options: { element: arrowElement, padding: 5 },
-        },
-        {
-          name: 'offset',
-          options: { offset: [10, 10] },
-        },
-        { name: 'flip' },
-        { name: 'preventOverflow' },
-      ],
-    }
-  );
+  const data = usePopper(referenceElement, popperElement, {
+    ...restProps,
+    modifiers: [
+      {
+        name: 'arrow',
+        options: { element: arrowElement, padding: 5 },
+      },
+      {
+        name: 'offset',
+        options: { offset: [10, 10] },
+      },
+      { name: 'flip' },
+      { name: 'preventOverflow' },
+    ],
+  });
+
+  const { styles, attributes, update } = data;
 
   const triggerProps = React.useMemo(() => {
     switch (trigger) {
@@ -131,5 +134,8 @@ const Popper: React.FC<PopperProps> = ({
     </>
   );
 };
+
+Popper.Content = Content;
+Popper.Arrow = Arrow;
 
 export default Popper;

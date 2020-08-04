@@ -1,8 +1,6 @@
 import styled from '@emotion/styled';
+import { css } from '@emotion/core';
 
-/**
- * Content
- */
 export const Content = styled('div')`
   box-sizing: border-box;
   background-color: #fff;
@@ -11,6 +9,44 @@ export const Content = styled('div')`
   box-shadow: 0 3px 6px -4px rgba(0, 0, 0, 0.12),
     0 6px 16px 0 rgba(0, 0, 0, 0.08), 0 9px 28px 8px rgba(0, 0, 0, 0.05);
 `;
+
+export function getArrowStyle(
+  direction: 'top' | 'right' | 'bottom' | 'left',
+  color: string
+) {
+  switch (direction) {
+    case 'top':
+      return css`
+        border-top-color: ${color};
+        border-right-color: transparent;
+        border-bottom-color: transparent;
+        border-left-color: ${color};
+      `;
+    case 'right':
+      return css`
+        border-top-color: ${color};
+        border-right-color: ${color};
+        border-bottom-color: transparent;
+        border-left-color: transparent;
+      `;
+    case 'bottom':
+      return css`
+        border-top-color: transparent;
+        border-right-color: ${color};
+        border-bottom-color: ${color};
+        border-left-color: transparent;
+      `;
+    case 'left':
+      return css`
+        border-top-color: transparent;
+        border-right-color: transparent;
+        border-bottom-color: ${color};
+        border-left-color: ${color};
+      `;
+    default:
+      return null;
+  }
+}
 
 export const Arrow = styled('div')`
   &:after {
@@ -26,10 +62,7 @@ export const Arrow = styled('div')`
     bottom: -4px;
   }
   ${Content}[data-popper-placement^='top'] &:after {
-    border-top-color: transparent;
-    border-right-color: #fff;
-    border-bottom-color: #fff;
-    border-left-color: transparent;
+    ${getArrowStyle('bottom', '#fff')}
     box-shadow: 3px 3px 7px rgba(0, 0, 0, 0.07);
   }
 
@@ -37,10 +70,7 @@ export const Arrow = styled('div')`
     top: -4px;
   }
   ${Content}[data-popper-placement^='bottom'] &:after {
-    border-top-color: #fff;
-    border-right-color: transparent;
-    border-bottom-color: transparent;
-    border-left-color: #fff;
+    ${getArrowStyle('top', '#fff')}
     box-shadow: -2px -2px 5px rgba(0, 0, 0, 0.06);
   }
 
@@ -48,10 +78,7 @@ export const Arrow = styled('div')`
     right: -4px;
   }
   ${Content}[data-popper-placement^='left'] &:after {
-    border-top-color: #fff;
-    border-right-color: #fff;
-    border-bottom-color: transparent;
-    border-left-color: transparent;
+    ${getArrowStyle('right', '#fff')}
     box-shadow: 3px -3px 7px rgba(0, 0, 0, 0.07);
   }
 
@@ -59,18 +86,7 @@ export const Arrow = styled('div')`
     left: -4px;
   }
   ${Content}[data-popper-placement^='right'] &:after {
-    border-top-color: transparent;
-    border-right-color: transparent;
-    border-bottom-color: #fff;
-    border-left-color: #fff;
+    ${getArrowStyle('left', '#fff')}
     box-shadow: -3px 3px 7px rgba(0, 0, 0, 0.07);
   }
 `;
-
-/**
- * Tooltip
- */
-
-/**
- * Popover
- */

@@ -1,6 +1,6 @@
-import { PopperProps } from '../type';
+import { BasePopperProps } from '../type';
 
-export interface PopoverProps extends Omit<PopperProps, 'content'> {
+export interface PopoverProps extends BasePopperProps {
   title: React.ReactNode;
   content: React.ReactNode;
 }
