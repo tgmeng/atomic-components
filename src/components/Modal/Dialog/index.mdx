@@ -6,9 +6,33 @@ menu: Components
 import { Playground, Props } from 'docz';
 import Button from '../../Button';
 import Dialog from './';
-import QuickDialog from './QuickDialog';
+import RawDialog from './RawDialog';
 
-# Dialog
+## Dialog
+
+### 基本用法
+
+<Playground>
+  {() => {
+    const [isOpen, setIsOpen] = React.useState(false);
+    return (
+      <>
+        <Button variant="primary" onClick={() => setIsOpen(true)}>
+          Open
+        </Button>
+        <Dialog isOpen={isOpen} title="Title" onClose={() => setIsOpen(false)}>
+          <p>Content</p>
+        </Dialog>
+      </>
+    );
+  }}
+</Playground>
+
+### 属性
+
+<Props of={Dialog} />
+
+# RawDialog
 
 ## 基本用法
 
@@ -21,18 +45,18 @@ import QuickDialog from './QuickDialog';
         <Button variant="primary" onClick={() => setIsOpen(true)}>
           Open
         </Button>
-        <Dialog isOpen={isOpen} onClose={onClose}>
-          <Dialog.Header onClickClose={onClose}>Title</Dialog.Header>
-          <Dialog.Content>
+        <RawDialog isOpen={isOpen} onClose={onClose}>
+          <RawDialog.Header onClickClose={onClose}>Title</RawDialog.Header>
+          <RawDialog.Content>
             <p>Content</p>
-          </Dialog.Content>
-          <Dialog.Actions>
+          </RawDialog.Content>
+          <RawDialog.Actions>
             <Button onClick={onClose}>取消</Button>
             <Button variant="primary" onClick={onClose}>
               确定
             </Button>
-          </Dialog.Actions>
-        </Dialog>
+          </RawDialog.Actions>
+        </RawDialog>
       </>
     );
   }}
@@ -40,29 +64,4 @@ import QuickDialog from './QuickDialog';
 
 ## 属性
 
-<Props of={Dialog} />
-
-## QuickDialog
-
-### 基本用法
-
-<Playground>
-  {() => {
-    const [isOpen, setIsOpen] = React.useState(false);
-    const onClose = () => setIsOpen(false);
-    return (
-      <>
-        <Button variant="primary" onClick={() => setIsOpen(true)}>
-          Open
-        </Button>
-        <QuickDialog isOpen={isOpen} title="Title" onClose={onClose}>
-          <p>Content</p>
-        </QuickDialog>
-      </>
-    );
-  }}
-</Playground>
-
-### 属性
-
-<Props of={QuickDialog} />
+<Props of={RawDialog} />

@@ -1,58 +1,86 @@
 import * as React from 'react';
 
-import { createCommonStyledIcon } from '../../Icon/style';
-import { ReactComponent as OriginalCloseIcon } from '../../../resources/svgs/close.svg';
+import Button from '../../Button';
 
-import { ModalProps, ModalWithOpenStaticModalFn } from '../types';
+import { ModalWithOpenStaticModalFn } from '../types';
 import createOpenStaticModal from '../createOpenStaticModal';
-import Modal from '../Modal';
 
-import {
-  Header as StyledHeader,
-  Content,
-  Actions,
-  CloseButton,
-  dialogStyle,
-  titleStyle,
-} from './style';
+import { QuickDialogProps } from './type';
+import RawDialog from './RawDialog';
 
-const CloseIcon = createCommonStyledIcon(OriginalCloseIcon);
+export type QuickDialogInterface = ModalWithOpenStaticModalFn<QuickDialogProps>;
 
-const Header: React.FC<
-  {
-    isCloseHidden?: boolean;
-    onClickClose?: (
-      event: React.MouseEvent<HTMLButtonElement, MouseEvent>
-    ) => void;
-  } & React.HTMLAttributes<HTMLDivElement>
-> = ({ isCloseHidden, onClickClose, children, ...restProps }) => (
-  <StyledHeader {...restProps}>
-    <div css={titleStyle}>{children}</div>
-    {!isCloseHidden && (
-      <CloseButton onClick={onClickClose}>
-        <CloseIcon />
-      </CloseButton>
-    )}
-  </StyledHeader>
-);
-
-export type DialogInterface = ModalWithOpenStaticModalFn<ModalProps> & {
-  Header: typeof Header;
-  Content: typeof Content;
-  Actions: typeof Actions;
+const initialState = {
+  isConfirmLoading: false,
+  isCancelLoading: false,
 };
 
-const Dialog: DialogInterface = ({ children, ...restProps }) => {
+const Dialog: QuickDialogInterface = ({
+  title,
+  actions,
+  children,
+  isCloseHidden,
+  onClose,
+  onConfirm,
+  onCancel,
+  ...restProps
+}) => {
+  const [state, update] = React.useState(initialState);
+
+  const localActions = actions ?? (
+    <>
+      <Button
+        loading={state.isCancelLoading}
+        onClick={() => {
+          update((prevState) => ({
+            ...prevState,
+            isCancelLoading: true,
+          }));
+          Promise.resolve(onCancel?.())
+            .then(() => onClose?.())
+            .finally(() =>
+              update((prevState) => ({
+                ...prevState,
+                isCancelLoading: false,
+              }))
+            );
+        }}
+      >
+        取消
+      </Button>
+      <Button
+        variant="primary"
+        loading={state.isConfirmLoading}
+        onClick={() => {
+          update((prevState) => ({
+            ...prevState,
+            isConfirmLoading: true,
+          }));
+          Promise.resolve(onConfirm?.())
+            .then(() => onClose?.())
+            .finally(() =>
+              update((prevState) => ({
+                ...prevState,
+                isConfirmLoading: false,
+              }))
+            );
+        }}
+      >
+        确认
+      </Button>
+    </>
+  );
+
   return (
-    <Modal {...restProps} css={dialogStyle}>
-      {children}
-    </Modal>
+    <RawDialog {...restProps} onClose={onClose}>
+      <RawDialog.Header isCloseHidden={isCloseHidden} onClickClose={onClose}>
+        {title}
+      </RawDialog.Header>
+      <RawDialog.Content>{children}</RawDialog.Content>
+      <RawDialog.Actions>{localActions}</RawDialog.Actions>
+    </RawDialog>
   );
 };
-
-Dialog.Header = Header;
-Dialog.Content = Content;
-Dialog.Actions = Actions;
 
 Dialog.open = createOpenStaticModal(Dialog);
 
