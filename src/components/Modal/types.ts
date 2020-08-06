@@ -1,3 +1,5 @@
+import { StaticElement } from 'utils/openStaticElement';
+
 export interface ModalProps {
   isOpen: boolean;
   shouldCloseWhenPressESC?: boolean;
@@ -9,13 +11,8 @@ export interface ModalManagedProps {
   style: Pick<React.CSSProperties, 'zIndex'>;
 }
 
-export interface StaticModal<P> {
-  update(props: Partial<React.PropsWithChildren<P>>): void;
-  close(): void;
-}
-
 export interface OpenStaticModalFn<P> {
-  (initialState?: Partial<React.PropsWithChildren<P>>): StaticModal<P>;
+  (initialState?: Partial<React.PropsWithChildren<P>>): StaticElement<P>;
 }
 
 export type ModalWithOpenStaticModalFn<P extends ModalProps> = React.FC<P> & {
