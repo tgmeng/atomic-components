@@ -22,14 +22,14 @@ export const getSizeStyle = ({ size = 'normal' }: { size?: Size }) => {
     case 'small':
       return css`
         height: ${StyleSize.Small};
-        padding: 0 10px;
+        padding: 0 7px;
         line-height: ${changePXRelatively(StyleSize.Small, -2)};
         font-size: ${FontSize.Base};
       `;
     case 'large':
       return css`
         height: ${StyleSize.Large};
-        padding: 0 30px;
+        padding: 0 15px;
         line-height: ${changePXRelatively(StyleSize.Large, -2)};
         font-size: ${FontSize.Medium};
       `;
@@ -37,7 +37,7 @@ export const getSizeStyle = ({ size = 'normal' }: { size?: Size }) => {
     case 'normal':
       return css`
         height: ${StyleSize.Normal};
-        padding: 0 20px;
+        padding: 0 15px;
         line-height: ${changePXRelatively(StyleSize.Normal, -2)};
         font-size: ${FontSize.Base};
       `;
