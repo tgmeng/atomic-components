@@ -17,7 +17,7 @@ yarn docz:dev # npm run docz:dev
   - [x] Popper
     - [x] Tooltip
     - [x] Popover
-    - [ ] PopoverConfirm
+    - [x] PopConfirm
   - [ ] Message
   - [ ] Form
   - [ ] Radio
