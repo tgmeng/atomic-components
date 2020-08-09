@@ -8,6 +8,7 @@ export interface BasePopperProps {
   strategy?: PositioningStrategy;
   trigger?: Trigger;
   children: React.ReactElement;
+  onOpenChange?: (value: boolean) => void;
 }
 
 export interface PopperProps extends BasePopperProps {

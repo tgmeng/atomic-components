@@ -2,6 +2,8 @@ import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import { usePopper } from 'react-popper';
 
+import useControlledState from '../../hooks/useControlledState';
+
 import { PopperProps } from './type';
 import { Content, Arrow } from './style';
 
@@ -16,10 +18,15 @@ const Popper: PopperInterface = ({
   content,
   contentClassName,
   arrowClassName,
+  onOpenChange,
   children,
   ...restProps
 }) => {
-  const [isOpenInternal, setIsOpen] = React.useState(false);
+  const [isOpen, setIsOpen] = useControlledState(
+    isOpenExternal,
+    onOpenChange,
+    false
+  );
 
   const [
     referenceElement,
@@ -35,30 +42,32 @@ const Popper: PopperInterface = ({
     null
   );
 
-  const data = usePopper(referenceElement, popperElement, {
-    ...restProps,
-    modifiers: [
-      {
-        name: 'arrow',
-        options: { element: arrowElement, padding: 5 },
-      },
-      {
-        name: 'offset',
-        options: { offset: [10, 10] },
-      },
-      { name: 'flip' },
-      { name: 'preventOverflow' },
-    ],
-  });
-
-  const { styles, attributes, update } = data;
+  const { styles, attributes, update } = usePopper(
+    referenceElement,
+    popperElement,
+    {
+      ...restProps,
+      modifiers: [
+        {
+          name: 'arrow',
+          options: { element: arrowElement, padding: 5 },
+        },
+        {
+          name: 'offset',
+          options: { offset: [10, 10] },
+        },
+        { name: 'flip' },
+        { name: 'preventOverflow' },
+      ],
+    }
+  );
 
   const triggerProps = React.useMemo(() => {
     switch (trigger) {
       case 'click':
         return {
           onClick() {
-            setIsOpen(!isOpenInternal);
+            setIsOpen((_isOpen) => !_isOpen);
           },
         };
       case 'focus':
@@ -81,7 +90,7 @@ const Popper: PopperInterface = ({
           },
         };
     }
-  }, [isOpenInternal, trigger]);
+  }, [setIsOpen, trigger]);
 
   // eslint-disable-next-line consistent-return
   React.useEffect(() => {
@@ -96,17 +105,15 @@ const Popper: PopperInterface = ({
         document.removeEventListener('click', handler);
       };
     }
-  }, [trigger, popperElement?.contains]);
+  }, [trigger, popperElement?.contains, setIsOpen]);
 
   React.useLayoutEffect(() => {
     update?.();
   }, [update]);
 
-  if (!children || !content) {
+  if (!children) {
     return null;
   }
-
-  const isOpen = isOpenExternal !== undefined ? isOpenExternal : isOpenInternal;
 
   return (
     <>
