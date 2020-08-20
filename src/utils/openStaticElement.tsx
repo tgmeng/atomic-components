@@ -1,9 +1,6 @@
 import * as ReactDOM from 'react-dom';
 
-export interface OpenableProps {
-  isOpen: boolean;
-  onClose?: () => void;
-}
+import { OpenableProps } from '../types';
 
 export interface StaticElement<P> {
   update(props: Partial<React.PropsWithChildren<P>>): void;
@@ -24,17 +21,14 @@ export default function openStaticElement<P extends OpenableProps>(
   function render(props: P) {
     requestAnimationFrame(() => {
       ReactDOM.render(
-        ReactDOM.createPortal(
-          renderElement({
-            ...props,
-            onClose: () => {
-              props.onClose?.();
-              // eslint-disable-next-line @typescript-eslint/no-use-before-define
-              close();
-            },
-          }),
-          document.body
-        ),
+        renderElement({
+          ...props,
+          onClose: () => {
+            props.onClose?.();
+            // eslint-disable-next-line @typescript-eslint/no-use-before-define
+            close();
+          },
+        }),
         mountNode
       );
     });
