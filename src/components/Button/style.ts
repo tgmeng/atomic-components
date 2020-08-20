@@ -13,9 +13,10 @@ import {
   BackgroundColor,
   BorderColor,
   TextColor,
+  ColorByIntent,
 } from '../../styles';
 
-import { ButtonProps, Intent } from './type';
+import { ButtonProps, Size } from './type';
 
 export const getSizeStyle = ({ size = 'normal' }: { size?: Size }) => {
   switch (size) {
@@ -99,13 +100,6 @@ export const getDisabledStyle = ({
       }
     }
   `;
-
-const colorByIntent: { [key in Intent]: string } = {
-  default: Color.Primary,
-  success: Color.Success,
-  danger: Color.Danger,
-  warning: Color.Warning,
-};
 
 const getNormalButtonStyle = ({
   color = TextColor.Base,
@@ -211,8 +205,8 @@ const getLinkButtonStyle = ({
 `;
 
 const getVariantStyle = (props: ButtonProps) => {
-  const { variant = 'default', intent = 'default' } = props;
-  const color = colorByIntent[intent];
+  const { variant = 'default', intent = 'info' } = props;
+  const color = ColorByIntent[intent];
 
   let variantStyle = null;
 
@@ -226,7 +220,7 @@ const getVariantStyle = (props: ButtonProps) => {
 
     case 'dashed':
       variantStyle = getNormalButtonStyle({
-        shouldUseBaseColorWhenNormal: intent === 'default',
+        shouldUseBaseColorWhenNormal: intent === 'info',
         color,
         borderStyle: 'dashed',
       });
@@ -234,7 +228,7 @@ const getVariantStyle = (props: ButtonProps) => {
 
     case 'link':
       variantStyle = getLinkButtonStyle({
-        shouldUseBaseColorWhenNormal: intent === 'default',
+        shouldUseBaseColorWhenNormal: intent === 'info',
         color,
       });
       break;
@@ -242,7 +236,7 @@ const getVariantStyle = (props: ButtonProps) => {
     case 'default':
     default:
       variantStyle = getNormalButtonStyle({
-        shouldUseBaseColorWhenNormal: intent === 'default',
+        shouldUseBaseColorWhenNormal: intent === 'info',
         color,
         borderStyle: 'solid',
       });

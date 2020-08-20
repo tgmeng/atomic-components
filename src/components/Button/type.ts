@@ -1,6 +1,8 @@
+import { Intent as CommonIntent } from '../../types';
+
 export type Size = 'small' | 'normal' | 'large';
 export type Variant = 'default' | 'primary' | 'dashed' | 'link';
-export type Intent = 'default' | 'success' | 'warning' | 'danger';
+export type Intent = CommonIntent;
 
 export type ButtonRef = HTMLButtonElement;
 
