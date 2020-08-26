@@ -7,42 +7,58 @@ import useUpdate from '../hooks/useUpdate';
 import usePrevious from '../hooks/usePrevious';
 
 export interface CreateComponentStackOptions {
+  maxCount?: number;
   onCreatingContainer(): HTMLElement;
-}
-
-export interface UpdateFn {
-  (): void;
 }
 
 export interface AutoPortalProps extends OpenableProps {
   children: React.ReactNode;
 }
 
-export default function createAutoPortal(options: CreateComponentStackOptions) {
+export interface RefItem {
+  onClose?(): void;
+  update(): void;
+}
+
+export function createAutoPortal({
+  maxCount = 5,
+  onCreatingContainer,
+}: CreateComponentStackOptions) {
   let container: HTMLElement | null = null;
 
-  const refSet: Set<UpdateFn> = new Set();
+  let id = 0;
 
-  function ref(update: UpdateFn) {
-    if (!refSet.has(update)) {
-      refSet.add(update);
+  const refMap: Map<number, RefItem> = new Map();
+
+  function unref(_id: number) {
+    const item = refMap.get(_id);
+    if (item) {
+      item.onClose?.();
+      refMap.delete(_id);
     }
-    if (refSet.size === 1) {
-      container = options.onCreatingContainer();
-
-      update();
+    if (refMap.size === 0) {
+      container?.parentNode?.removeChild(container);
+      container = null;
+      item?.update();
     }
   }
 
-  function unref(update: UpdateFn) {
-    if (refSet.has(update)) {
-      refSet.delete(update);
+  function ref(item: RefItem) {
+    id += 1;
+
+    if (refMap.size >= maxCount) {
+      const _idToRemove = refMap.keys().next().value;
+      unref(_idToRemove);
     }
-    if (refSet.size === 0) {
-      container?.parentNode?.removeChild(container);
-      container = null;
-      update();
+
+    refMap.set(id, item);
+
+    if (refMap.size === 1) {
+      container = onCreatingContainer();
+      item.update();
     }
+
+    return id;
   }
 
   return function AutoPortal({
@@ -50,21 +66,25 @@ export default function createAutoPortal(options: CreateComponentStackOptions) {
     onClose,
     children,
   }: AutoPortalProps) {
+    const idRef = React.useRef(0);
     const update = useUpdate();
     const prevIsOpen = usePrevious(isOpen);
 
     React.useEffect(() => {
       return () => {
-        unref(update);
+        unref(idRef.current);
       };
       // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     React.useEffect(() => {
       if (isOpen) {
-        ref(update);
+        idRef.current = ref({
+          onClose,
+          update,
+        });
       } else if (prevIsOpen) {
-        unref(update);
+        unref(idRef.current);
       }
       // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [isOpen]);
