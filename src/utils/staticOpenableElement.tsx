@@ -1,16 +1,23 @@
+import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 
 import { OpenableProps } from '../types';
 
-export interface StaticElement<P> {
+export interface StaticOpenableElement<P> {
   update(props: Partial<React.PropsWithChildren<P>>): void;
   close(): void;
 }
 
-export default function openStaticElement<P extends OpenableProps>(
+export interface OpenStaticOpenableElementFn<P> {
+  (initialState?: Partial<React.PropsWithChildren<P>>): StaticOpenableElement<
+    P
+  >;
+}
+
+export function createStaticOpenableElement<P extends OpenableProps>(
   renderElement: (state: P) => React.ReactElement<P>,
   initialState?: Partial<P>
-): StaticElement<P> {
+): StaticOpenableElement<P> {
   let mountNode: HTMLDivElement | null = document.createElement('div');
 
   let state = {
@@ -60,5 +67,16 @@ export default function openStaticElement<P extends OpenableProps>(
   return {
     update,
     close,
+  };
+}
+
+export function createOpenStaticOpenableElementFn<P extends OpenableProps>(
+  Component: React.ComponentType<P>
+): OpenStaticOpenableElementFn<P> {
+  return function openStaticOpenableElement(initialState) {
+    return createStaticOpenableElement(
+      (props) => <Component {...props} />,
+      initialState
+    );
   };
 }

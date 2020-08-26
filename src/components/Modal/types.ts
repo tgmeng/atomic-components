@@ -1,4 +1,4 @@
-import { StaticElement } from 'utils/openStaticElement';
+import { StaticOpenableElement } from 'utils/staticOpenableElement';
 
 export interface ModalProps {
   isOpen: boolean;
@@ -12,7 +12,7 @@ export interface ModalManagedProps {
 }
 
 export interface OpenStaticModalFn<P> {
-  (initialState?: Partial<React.PropsWithChildren<P>>): StaticElement<P>;
+  (initialState?: Partial<React.PropsWithChildren<P>>): StaticOpenableElement<P>;
 }
 
 export type ModalWithOpenStaticModalFn<P extends ModalProps> = React.FC<P> & {

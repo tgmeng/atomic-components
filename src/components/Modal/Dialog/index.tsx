@@ -1,10 +1,11 @@
 import * as React from 'react';
 
-import { createCommonStyledIcon } from '../../Icon/style';
+import { createOpenStaticOpenableElementFn } from '../../../utils/staticOpenableElement';
 import { ReactComponent as OriginalCloseIcon } from '../../../resources/svgs/close.svg';
+
+import { createCommonStyledIcon } from '../../Icon/style';
 import Button from '../../Button';
 
-import createOpenStaticModal from '../createOpenStaticModal';
 import Modal from '../Modal';
 import { ModalWithOpenStaticModalFn } from '../types';
 
@@ -124,6 +125,6 @@ Dialog.Header = Header;
 Dialog.Content = Content;
 Dialog.Actions = Actions;
 
-Dialog.open = createOpenStaticModal(Dialog);
+Dialog.open = createOpenStaticOpenableElementFn(Dialog);
 
 export default Dialog;

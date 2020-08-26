@@ -1,11 +1,12 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 
+import { createOpenStaticOpenableElementFn } from '../../utils/staticOpenableElement';
+
 import { ModalProps, ModalWithOpenStaticModalFn } from './types';
 import { Modal as StyledModal, ModalWrapper, Backdrop } from './style';
 
 import { useModalManager } from './useModalManager';
-import createOpenStaticModal from './createOpenStaticModal';
 
 export type ModalInterface = ModalWithOpenStaticModalFn<ModalProps>;
 
@@ -58,6 +59,6 @@ const Modal: ModalInterface = ({
   );
 };
 
-Modal.open = createOpenStaticModal(Modal);
+Modal.open = createOpenStaticOpenableElementFn(Modal);
 
 export default Modal;
