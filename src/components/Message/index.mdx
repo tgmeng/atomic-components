@@ -1,0 +1,73 @@
+---
+name: Message
+menu: Components
+---
+
+import { Playground, Props } from 'docz';
+import Button from '../Button';
+import Message from './';
+
+# Message
+
+## 基础用法(静态方法)
+
+<Playground>
+  {() => {
+    return (
+      <>
+        <Button
+          variant="primary"
+          onClick={() =>
+            Message.info({
+              children: Date.now(),
+            })
+          }
+        >
+          Click Me
+        </Button>
+      </>
+    );
+  }}
+</Playground>
+
+## 不同的意图
+
+<Playground>
+  {() => {
+    return (
+      <>
+        <Button intent="success" onClick={() => Message.success({ children: Date.now() })}>
+          Success
+        </Button>
+        <Button intent="warning" onClick={() => Message.warn({ children: Date.now() })}>
+          Warn
+        </Button>
+        <Button intent="danger" onClick={() => Message.error({ children: Date.now() })}>
+          Error
+        </Button>
+      </>
+    );
+  }}
+</Playground>
+
+## 声明式用法
+
+<Playground>
+  {() => {
+    const [isOpen, setIsOpen] = React.useState(false);
+    return (
+      <>
+        <Button variant="primary" onClick={() => setIsOpen(!isOpen)}>
+          Click Me
+        </Button>
+        <Message isOpen={isOpen} onClose={() => setIsOpen(false)}>
+          Some message
+        </Message>
+      </>
+    );
+  }}
+</Playground>
+
+## 属性
+
+<Props of={Message} />
