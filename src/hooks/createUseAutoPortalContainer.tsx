@@ -1,27 +1,24 @@
 import * as React from 'react';
-import * as ReactDOM from 'react-dom';
 
 import { OpenableProps } from '../types';
 
-import useUpdate from '../hooks/useUpdate';
-import usePrevious from '../hooks/usePrevious';
+import useUpdate from './useUpdate';
+import useAutoRef from './useAutoRef';
 
 export interface CreateComponentStackOptions {
-  maxCount?: number;
+  maxChildrenCount?: number;
   onCreatingContainer(): HTMLElement;
 }
 
-export interface AutoPortalProps extends OpenableProps {
-  children: React.ReactNode;
-}
+export type useAutoPortalContainerOptions = OpenableProps;
 
 export interface RefItem {
-  onClose?(): void;
+  onCloseRef?: React.MutableRefObject<OpenableProps['onClose']>;
   update(): void;
 }
 
-export function createAutoPortal({
-  maxCount = 5,
+export default function createUseAutoPortalContainer({
+  maxChildrenCount = 5,
   onCreatingContainer,
 }: CreateComponentStackOptions) {
   let container: HTMLElement | null = null;
@@ -33,7 +30,7 @@ export function createAutoPortal({
   function unref(_id: number) {
     const item = refMap.get(_id);
     if (item) {
-      item.onClose?.();
+      item.onCloseRef?.current?.();
       refMap.delete(_id);
     }
     if (refMap.size === 0) {
@@ -46,7 +43,7 @@ export function createAutoPortal({
   function ref(item: RefItem) {
     id += 1;
 
-    if (refMap.size >= maxCount) {
+    if (refMap.size >= maxChildrenCount) {
       const _idToRemove = refMap.keys().next().value;
       unref(_idToRemove);
     }
@@ -61,38 +58,33 @@ export function createAutoPortal({
     return id;
   }
 
-  return function AutoPortal({
+  return function useAutoPortalContainer({
     isOpen = true,
     onClose,
-    children,
-  }: AutoPortalProps) {
+  }: useAutoPortalContainerOptions) {
     const idRef = React.useRef(0);
     const update = useUpdate();
-    const prevIsOpen = usePrevious(isOpen);
 
-    React.useEffect(() => {
-      return () => {
-        unref(idRef.current);
-      };
-      // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+    const onCloseRef = useAutoRef(onClose);
+    const _onClose = React.useCallback(() => unref(idRef.current), []);
 
     React.useEffect(() => {
       if (isOpen) {
         idRef.current = ref({
-          onClose,
+          onCloseRef,
           update,
         });
-      } else if (prevIsOpen) {
-        unref(idRef.current);
+        return () => {
+          unref(idRef.current);
+        };
       }
+      return undefined;
       // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [isOpen]);
 
-    if (!isOpen || !container) {
-      return null;
-    }
-
-    return ReactDOM.createPortal(children, container);
+    return {
+      container,
+      onClose: _onClose,
+    };
   };
 }
