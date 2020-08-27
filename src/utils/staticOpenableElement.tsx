@@ -26,7 +26,7 @@ export function createStaticOpenableElement<P extends OpenableProps>(
   } as P;
 
   function render(props: P) {
-    requestAnimationFrame(() => {
+    if (mountNode) {
       ReactDOM.render(
         renderElement({
           ...props,
@@ -38,7 +38,7 @@ export function createStaticOpenableElement<P extends OpenableProps>(
         }),
         mountNode
       );
-    });
+    }
   }
 
   function update(props: Partial<P>) {
@@ -52,8 +52,10 @@ export function createStaticOpenableElement<P extends OpenableProps>(
 
   function destroy() {
     requestAnimationFrame(() => {
-      ReactDOM.unmountComponentAtNode(mountNode as HTMLDivElement);
-      mountNode = null;
+      if (mountNode) {
+        ReactDOM.unmountComponentAtNode(mountNode as HTMLDivElement);
+        mountNode = null;
+      }
     });
   }
 
@@ -71,12 +73,13 @@ export function createStaticOpenableElement<P extends OpenableProps>(
 }
 
 export function createOpenStaticOpenableElementFn<P extends OpenableProps>(
-  Component: React.ComponentType<P>
+  Component: React.ComponentType<P>,
+  initialState?: Partial<React.PropsWithChildren<P>>
 ): OpenStaticOpenableElementFn<P> {
-  return function openStaticOpenableElement(initialState) {
-    return createStaticOpenableElement(
-      (props) => <Component {...props} />,
-      initialState
-    );
+  return function openStaticOpenableElement(_initialState) {
+    return createStaticOpenableElement((props) => <Component {...props} />, {
+      ...initialState,
+      ..._initialState,
+    });
   };
 }
