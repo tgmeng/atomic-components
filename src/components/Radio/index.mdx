@@ -1,0 +1,54 @@
+---
+name: Radio
+menu: Components
+---
+
+import { Playground, Props } from 'docz';
+import Radio, { RadioGroup } from './';
+
+# Radio
+
+## 基本用法
+
+<Playground>
+  <Radio>Radio</Radio>
+</Playground>
+
+## 禁止状态
+
+<Playground>
+  <Radio disabled>Radio</Radio>
+  <Radio checked disabled>
+    Radio
+  </Radio>
+</Playground>
+
+## RadioGroup
+
+<Playground>
+  {() => {
+    const [value, setValue] = React.useState(1);
+    return (
+      <RadioGroup
+        value={value}
+        onChange={(value) => {
+          setValue(value);
+        }}
+      >
+        <Radio value={1}>选项一</Radio>
+        <Radio value={2}>选项二</Radio>
+        <Radio value={3} disabled>
+          选项三
+        </Radio>
+      </RadioGroup>
+    );
+  }}
+</Playground>
+
+## Radio 属性
+
+<Props of={Radio} />
+
+## RadioGroup 属性
+
+<Props of={RadioGroup} />
