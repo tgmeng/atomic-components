@@ -4,6 +4,8 @@
 import { blue, green, red, gold } from '@ant-design/colors';
 import { hsl, transparentize } from 'polished';
 
+import { Intent } from '../types';
+
 export const BaseColor = {
   White: '#fff',
   Black: '#000',
@@ -30,4 +32,11 @@ export const BackgroundColor = {
 
 export const BorderColor = {
   Base: hsl(0, 0, 0.85),
+};
+
+export const ColorByIntent: Record<Intent, string> = {
+  info: Color.Info,
+  success: Color.Success,
+  danger: Color.Danger,
+  warning: Color.Warning,
 };
