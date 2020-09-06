@@ -19,13 +19,13 @@ yarn docz:dev # npm run docz:dev
     - [x] Popover
     - [x] PopConfirm
   - [x] Message
-  - [ ] Form
-  - [ ] Radio
+  - [x] Radio
   - [ ] Select
   - [ ] Checkbox
   - [ ] Switch
   - [ ] DatePicker
   - [ ] TimePicker
+  - [ ] Form
   - [ ] Tabs
   - [ ] Table
   - [ ] Pagination
