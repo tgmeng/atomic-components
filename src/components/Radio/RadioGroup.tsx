@@ -1,7 +1,9 @@
 import * as React from 'react';
 
-import { RadioGroupContextProvider } from './RadioGroupContext';
 import { RadioGroupProps } from './type';
+import { radioGroupStyle } from './style';
+
+import { RadioGroupContextProvider } from './RadioGroupContext';
 
 const RadioGroup: React.FC<RadioGroupProps> = ({
   onChange,
@@ -22,7 +24,7 @@ const RadioGroup: React.FC<RadioGroupProps> = ({
         onChange: onRadioChange,
       }}
     >
-      {children}
+      <div css={radioGroupStyle}>{children}</div>
     </RadioGroupContextProvider>
   );
 };

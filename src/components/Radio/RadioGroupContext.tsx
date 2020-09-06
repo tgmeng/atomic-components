@@ -1,22 +1,15 @@
 import * as React from 'react';
 
-import { RadioGroupContextProps } from './type';
+import { RadioGroupProps, RadioButtonGroupProps } from './type';
 
-const RadioGroupContext = React.createContext<RadioGroupContextProps | null>(
-  null
-);
+const RadioGroupContext = React.createContext<RadioGroupProps | null>(null);
 
-export function RadioGroupContextProvider({
-  value,
-  children,
-}: React.PropsWithChildren<{ value: RadioGroupContextProps }>) {
-  return (
-    <RadioGroupContext.Provider value={value}>
-      {children}
-    </RadioGroupContext.Provider>
-  );
+export const RadioGroupContextProvider = RadioGroupContext.Provider;
+
+export function useRadioGroupContext(): RadioGroupProps | null {
+  return React.useContext(RadioGroupContext);
 }
 
-export function useRadioGroupContext() {
+export function useRadioButtonGroupContext(): RadioButtonGroupProps | null {
   return React.useContext(RadioGroupContext);
 }

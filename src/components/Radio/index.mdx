@@ -4,7 +4,7 @@ menu: Components
 ---
 
 import { Playground, Props } from 'docz';
-import Radio, { RadioGroup } from './';
+import Radio, { RadioButton } from './';
 
 # Radio
 
@@ -23,13 +23,13 @@ import Radio, { RadioGroup } from './';
   </Radio>
 </Playground>
 
-## RadioGroup
+## Radio.Group
 
 <Playground>
   {() => {
     const [value, setValue] = React.useState(1);
     return (
-      <RadioGroup
+      <Radio.Group
         value={value}
         onChange={(value) => {
           setValue(value);
@@ -40,7 +40,81 @@ import Radio, { RadioGroup } from './';
         <Radio value={3} disabled>
           选项三
         </Radio>
-      </RadioGroup>
+      </Radio.Group>
+    );
+  }}
+</Playground>
+
+## RadioButton
+
+### 基础用法
+
+<Playground>
+  {() => {
+    const [value, setValue] = React.useState(1);
+    return (
+      <RadioButton.Group
+        value={value}
+        onChange={(value) => {
+          setValue(value);
+        }}
+      >
+        <RadioButton value={1}>选项一</RadioButton>
+        <RadioButton value={2}>选项二</RadioButton>
+        <RadioButton value={3} disabled>
+          选项三
+        </RadioButton>
+      </RadioButton.Group>
+    );
+  }}
+</Playground>
+
+### 实底
+
+<Playground>
+  {() => {
+    const [value, setValue] = React.useState(1);
+    return (
+      <RadioButton.Group
+        variant="solid"
+        value={value}
+        onChange={(value) => {
+          setValue(value);
+        }}
+      >
+        <RadioButton value={1}>选项一</RadioButton>
+        <RadioButton value={2}>选项二</RadioButton>
+        <RadioButton value={3} disabled>
+          选项三
+        </RadioButton>
+      </RadioButton.Group>
+    );
+  }}
+</Playground>
+
+### 不同大小
+
+<Playground>
+  {() => {
+    const [value, setValue] = React.useState(1);
+    return (
+      <>
+        <RadioButton.Group size="large">
+          <RadioButton value={1}>选项一</RadioButton>
+          <RadioButton value={2}>选项二</RadioButton>
+          <RadioButton value={3}>选项三</RadioButton>
+        </RadioButton.Group>
+        <RadioButton.Group size="normal">
+          <RadioButton value={1}>选项一</RadioButton>
+          <RadioButton value={2}>选项二</RadioButton>
+          <RadioButton value={3}>选项三</RadioButton>
+        </RadioButton.Group>
+        <RadioButton.Group size="small">
+          <RadioButton value={1}>选项一</RadioButton>
+          <RadioButton value={2}>选项二</RadioButton>
+          <RadioButton value={3}>选项三</RadioButton>
+        </RadioButton.Group>
+      </>
     );
   }}
 </Playground>
@@ -49,6 +123,10 @@ import Radio, { RadioGroup } from './';
 
 <Props of={Radio} />
 
-## RadioGroup 属性
+## Radio.Group 属性
 
-<Props of={RadioGroup} />
+<Props of={Radio.Group} />
+
+## RadioButton.Group 属性
+
+<Props of={RadioButton.Group} />
