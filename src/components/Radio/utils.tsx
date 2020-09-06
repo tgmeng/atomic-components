@@ -1,12 +1,8 @@
 import * as React from 'react';
-import {
-  RadioChangeEvent,
-  RadioGroupContextProps,
-  BaseRadioProps,
-} from './type';
+import { RadioChangeEvent, BaseRadioProps, RadioGroupProps } from './type';
 
 export function mergeRadioGroupContextProps<T extends BaseRadioProps>(
-  context: RadioGroupContextProps | null,
+  context: RadioGroupProps | null,
   props: T
 ): Omit<T, 'onChange'> & {
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
