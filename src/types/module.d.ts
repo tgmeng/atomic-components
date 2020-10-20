@@ -1,8 +1,6 @@
-import { SVGRComponent } from '.';
-
 declare module '*.svg' {
   const src: string;
-  const ReactComponent: SVGRComponent;
+  const ReactComponent: import('./index').SVGRComponent;
   export { ReactComponent };
   export default src;
 }
