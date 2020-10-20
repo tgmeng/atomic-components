@@ -2,7 +2,7 @@ import { css, keyframes } from '@emotion/core';
 import styled from '@emotion/styled';
 import { position } from 'polished';
 
-import { generate } from '@ant-design/colors';
+import antDesignColors from '@ant-design/colors';
 
 import { changePXRelatively } from '../../utils/style';
 import {
@@ -17,6 +17,8 @@ import {
 } from '../../styles';
 
 import { ButtonProps, Size } from './type';
+
+const { generate } = antDesignColors;
 
 export const getSizeStyle = ({ size = 'normal' }: { size?: Size }) => {
   switch (size) {

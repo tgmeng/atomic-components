@@ -1,10 +1,12 @@
 /**
  * 色值 from: https://ant.design/docs/spec/colors-cn
  */
-import { blue, green, red, gold } from '@ant-design/colors';
+import antDesignColors from '@ant-design/colors';
 import { hsl, transparentize } from 'polished';
 
 import { Intent } from '../types';
+
+const { blue, green, red, gold } = antDesignColors;
 
 export const BaseColor = {
   White: '#fff',
