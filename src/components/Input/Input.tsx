@@ -4,12 +4,12 @@ import { ReactComponent as ClearIcon } from '../../resources/svgs/circle-fill/cl
 
 import { InputProps } from './type';
 import {
-  InputWrapper,
-  InputSpan,
-  Input as StyledInput,
+  getInputSpanStyle,
+  getInputStyle,
   iconStyle,
   prefixStyle,
   suffixStyle,
+  getInputWrapperStyle,
 } from './style';
 
 const Input: React.FC<InputProps> = ({
@@ -78,16 +78,19 @@ const Input: React.FC<InputProps> = ({
   );
 
   return (
-    <InputWrapper
-      size={size}
-      isFocus={isFocus}
-      isDisabled={disabled}
+    <span
+      css={getInputWrapperStyle({
+        size,
+        isFocus,
+        isDisabled: disabled,
+      })}
       onClick={focus}
     >
-      {prefix && <InputSpan css={prefixStyle}>{prefix}</InputSpan>}
-      <StyledInput
+      {prefix && <span css={[getInputSpanStyle(), prefixStyle]}>{prefix}</span>}
+      <input
         {...restProps}
         ref={inputRef}
+        css={getInputStyle({ size, isDisabled: Boolean(disabled) })}
         value={value}
         readOnly={readOnly}
         disabled={disabled}
@@ -96,15 +99,19 @@ const Input: React.FC<InputProps> = ({
         onBlur={handleBlur}
       />
       {isClearable && !readOnly && (
-        <InputSpan
-          css={suffixStyle}
-          isHidden={Boolean(!value || `${value}`.length === 0)}
+        <span
+          css={[
+            getInputSpanStyle({
+              isHidden: Boolean(!value || `${value}`.length === 0),
+            }),
+            suffixStyle,
+          ]}
         >
           <ClearIcon css={iconStyle} onClick={handleClear} />
-        </InputSpan>
+        </span>
       )}
-      {suffix && <InputSpan css={suffixStyle}>{suffix}</InputSpan>}
-    </InputWrapper>
+      {suffix && <span css={[getInputSpanStyle(), suffixStyle]}>{suffix}</span>}
+    </span>
   );
 };
 
