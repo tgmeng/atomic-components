@@ -27,7 +27,9 @@ export default {
       include: 'node_modules/**',
     }),
     peerDepsExternal(),
-    typescript(),
+    typescript({
+      include: 'src/**',
+    }),
     babel({
       babelHelpers: 'bundled',
       include: 'src/**',
