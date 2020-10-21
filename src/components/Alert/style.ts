@@ -1,13 +1,11 @@
 import { css } from '@emotion/core';
 import styled from '@emotion/styled';
 import { math } from 'polished';
-import antDesignColors from '@ant-design/colors';
+import { generate } from '@ant-design/colors';
 
 import { Color, FontSize, TextColor, LineHeight } from '../../styles';
 
 import { Intent, AlertProps } from './type';
-
-const { generate } = antDesignColors;
 
 const generateAlertColorObject = (color: string) => {
   return {

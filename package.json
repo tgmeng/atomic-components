@@ -20,7 +20,7 @@
     "docz:serve": "docz build && docz serve"
   },
   "dependencies": {
-    "@ant-design/colors": "^4.0.1",
+    "@ant-design/colors": "^4.0.5",
     "@popperjs/core": "^2.4.4",
     "immutability-helper": "^3.1.1",
     "polished": "^3.6.5",

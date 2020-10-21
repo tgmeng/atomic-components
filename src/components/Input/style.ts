@@ -1,8 +1,7 @@
-import styled from '@emotion/styled';
 import { css } from '@emotion/core';
 import { transparentize } from 'polished';
 
-import antDesignColors from '@ant-design/colors';
+import { generate } from '@ant-design/colors';
 
 import {
   resetTypography,
@@ -18,8 +17,6 @@ import {
 } from '../../styles';
 
 import { Size } from './type';
-
-const { generate } = antDesignColors;
 
 export const InputColor = TextColor;
 
