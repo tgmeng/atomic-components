@@ -5,21 +5,24 @@ import { createCommonStyledIcon } from '../Icon/style';
 import { ReactComponent as OriginalReloadIcon } from '../../resources/svgs/reload.svg';
 
 import { ButtonRef, ButtonProps } from './type';
-import { Button as StyledButton, reloadIconStyle, IconSpan } from './style';
+import { reloadIconStyle, iconStyle, getButtonStyle } from './style';
 
 const ReloadIcon = createCommonStyledIcon(OriginalReloadIcon);
 
-const Button = React.forwardRef<ButtonRef, ButtonProps>(
-  ({ children, loading, ...props }, ref) => (
-    <StyledButton ref={ref} {...props}>
+const Button = React.forwardRef<ButtonRef, ButtonProps>(function Button(
+  { children, loading, ...props },
+  ref
+) {
+  return (
+    <button ref={ref} css={getButtonStyle(props)} type="button" {...props}>
       {loading && (
-        <IconSpan>
+        <span css={iconStyle}>
           <ReloadIcon css={reloadIconStyle} />
-        </IconSpan>
+        </span>
       )}
       <span>{children}</span>
-    </StyledButton>
-  )
-);
+    </button>
+  );
+});
 
 export default Button;

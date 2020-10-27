@@ -264,10 +264,10 @@ const getBaseStyle = () => css`
   cursor: pointer;
 `;
 
-export const Button = styled('button')<ButtonProps>`
-  ${getBaseStyle}
-  ${getSizeStyle};
-  ${getVariantStyle};
+export const getButtonStyle = (props: ButtonProps) => css`
+  ${getBaseStyle()};
+  ${getSizeStyle(props)};
+  ${getVariantStyle(props)};
 `;
 
 const spin = keyframes`
@@ -280,7 +280,7 @@ const spin = keyframes`
   }
 `;
 
-export const IconSpan = styled('span')`
+export const iconStyle = css`
   margin-right: 5px;
 `;
 
