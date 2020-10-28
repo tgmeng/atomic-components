@@ -18,7 +18,10 @@ const Popper: PopperInterface = ({
   content,
   contentClassName,
   arrowClassName,
+  hasArrow = true,
   onOpenChange,
+  enterDelay = 100,
+  leaveDelay = 100,
   children,
   ...restProps
 }) => {
@@ -28,6 +31,36 @@ const Popper: PopperInterface = ({
     false
   );
 
+  /**
+   * trigger === hover, should delay
+   */
+  const timeoutRef = React.useRef<number>(0);
+  const delayedToggle = React.useCallback(
+    (value: boolean) => {
+      clearTimeout(timeoutRef.current);
+      timeoutRef.current = window.setTimeout(
+        () => {
+          setIsOpen(value);
+        },
+        value ? enterDelay : leaveDelay
+      );
+    },
+    [enterDelay, leaveDelay, setIsOpen]
+  );
+  const contentMouseEventProps = React.useMemo(
+    () =>
+      trigger === 'hover'
+        ? {
+            onMouseEnter: () => delayedToggle(true),
+            onMouseLeave: () => delayedToggle(false),
+          }
+        : {},
+    [trigger, delayedToggle]
+  );
+
+  /**
+   * config popper
+   */
   const [
     referenceElement,
     setReferenceElement,
@@ -48,10 +81,14 @@ const Popper: PopperInterface = ({
     {
       ...restProps,
       modifiers: [
-        {
-          name: 'arrow',
-          options: { element: arrowElement, padding: 5 },
-        },
+        ...(hasArrow
+          ? [
+              {
+                name: 'arrow',
+                options: { element: arrowElement, padding: 5 },
+              },
+            ]
+          : []),
         {
           name: 'offset',
           options: { offset: [10, 10] },
@@ -66,35 +103,26 @@ const Popper: PopperInterface = ({
     switch (trigger) {
       case 'click':
         return {
-          onClick() {
-            setIsOpen((_isOpen) => !_isOpen);
-          },
+          onClick: () => setIsOpen((_isOpen) => !_isOpen),
         };
       case 'focus':
         return {
-          onFocus() {
-            setIsOpen(true);
-          },
-          onBlur() {
-            setIsOpen(false);
-          },
+          onFocus: () => setIsOpen(true),
+          onBlur: () => setIsOpen(false),
         };
       case 'hover':
       default:
         return {
-          onMouseEnter() {
-            setIsOpen(true);
-          },
-          onMouseLeave() {
-            setIsOpen(false);
-          },
+          onMouseEnter: () => delayedToggle(true),
+          onMouseLeave: () => delayedToggle(false),
         };
     }
-  }, [setIsOpen, trigger]);
+  }, [delayedToggle, setIsOpen, trigger]);
 
   // eslint-disable-next-line consistent-return
   React.useEffect(() => {
     if (trigger === 'click') {
+      // trigger === click, should close when click outside
       const handler = (event: MouseEvent) => {
         if (!popperElement?.contains(event.target as Node)) {
           setIsOpen(false);
@@ -128,13 +156,16 @@ const Popper: PopperInterface = ({
             className={contentClassName}
             ref={setPopperElement}
             style={styles.popper}
+            {...contentMouseEventProps}
           >
             {content}
-            <Arrow
-              ref={setArrowElement}
-              className={arrowClassName}
-              style={styles.arrow}
-            />
+            {hasArrow && (
+              <Arrow
+                ref={setArrowElement}
+                className={arrowClassName}
+                style={styles.arrow}
+              />
+            )}
           </Content>,
           document.body
         )}

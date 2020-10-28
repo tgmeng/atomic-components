@@ -7,6 +7,9 @@ export interface BasePopperProps {
   placement?: Placement;
   strategy?: PositioningStrategy;
   trigger?: Trigger;
+  hasArrow?: boolean;
+  enterDelay?: number;
+  leaveDelay?: number;
   children: React.ReactElement;
   onOpenChange?: (value: boolean) => void;
 }
