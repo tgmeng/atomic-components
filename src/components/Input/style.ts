@@ -109,6 +109,7 @@ export const getInputWrapperStyle = (props: {
   border: 1px solid ${BorderColor.Base};
   border-radius: 2px;
   background-color: ${BaseColor.White};
+  outline: none;
   transition: all 0.3s;
 
   &:hover {
