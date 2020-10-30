@@ -14,7 +14,7 @@ export interface PopperInterface extends React.FC<PopperProps> {
 
 const Popper: PopperInterface = ({
   isOpen: isOpenExternal,
-  trigger,
+  trigger = 'hover',
   content,
   contentClassName,
   arrowClassName,
