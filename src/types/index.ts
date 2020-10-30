@@ -7,3 +7,7 @@ export interface OpenableProps {
   isOpen: boolean;
   onClose?: () => void;
 }
+
+export interface AsProps {
+  as?: React.ElementType | keyof JSX.IntrinsicElements;
+}
