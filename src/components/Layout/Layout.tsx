@@ -1,16 +1,23 @@
 import * as React from 'react';
 
+import { withProps } from '../../utils/component';
+
 import LayoutContext from './Context';
 import Aside from './Aside';
 
-import { Layout as StyledLayout, Header, Content, Footer } from './style';
+import {
+  getLayoutStyle,
+  headerStyle,
+  contentStyle,
+  footerStyle,
+} from './style';
 import { LayoutContextProps } from './type';
 
-export type LayoutInterface = typeof StyledLayout & {
-  Header: typeof Header;
+export type LayoutInterface = React.FC & {
+  Header: React.FC;
   Aside: typeof Aside;
-  Content: typeof Content;
-  Footer: typeof Footer;
+  Content: React.FC;
+  Footer: React.FC;
 };
 
 const Layout = ((props) => {
@@ -31,14 +38,25 @@ const Layout = ((props) => {
 
   return (
     <LayoutContext.Provider value={contextValue}>
-      <StyledLayout {...props} hasAside={hasAside} />
+      <section
+        {...props}
+        css={getLayoutStyle({
+          hasAside,
+        })}
+      />
     </LayoutContext.Provider>
   );
 }) as LayoutInterface;
 
-Layout.Header = Header;
+Layout.Header = withProps('header', {
+  css: headerStyle,
+});
 Layout.Aside = Aside;
-Layout.Content = Content;
-Layout.Footer = Footer;
+Layout.Content = withProps('main', {
+  css: contentStyle,
+});
+Layout.Footer = withProps('footer', {
+  css: footerStyle,
+});
 
 export default Layout;

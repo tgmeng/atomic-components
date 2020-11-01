@@ -1,12 +1,19 @@
 import * as React from 'react';
 
-import { Aside as StyledAside } from './style';
+import { asideStyle } from './style';
 
 import { useLayoutContext } from './Context';
+import { AsideProps } from './type';
 
 let id = 0;
 
-const Aside = ((props) => {
+const Aside: React.FC<AsideProps> = ({
+  width = 200,
+  collapsedWidth = 80,
+  collapsed = false,
+  onCollapse,
+  ...props
+}) => {
   const layoutContext = useLayoutContext();
 
   React.useEffect(() => {
@@ -16,7 +23,18 @@ const Aside = ((props) => {
     return () => layoutContext.asideHook.remove(strId);
   }, [layoutContext.asideHook]);
 
-  return <StyledAside {...props} />;
-}) as typeof StyledAside;
+  const rawWidth = collapsed ? collapsedWidth : width;
+  const finalWidth = typeof rawWidth === 'string' ? rawWidth : `${rawWidth}px`;
+
+  return (
+    <aside
+      css={asideStyle}
+      {...props}
+      style={{
+        width: finalWidth,
+      }}
+    />
+  );
+};
 
 export default Aside;

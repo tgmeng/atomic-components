@@ -4,3 +4,10 @@ export interface LayoutContextProps {
     remove: (id: string) => void;
   };
 }
+
+export interface AsideProps {
+  width?: string | number;
+  collapsedWidth?: string | number;
+  collapsed?: boolean;
+  onCollapse?: (value: boolean) => void;
+}
