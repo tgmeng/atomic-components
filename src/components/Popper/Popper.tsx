@@ -85,13 +85,13 @@ const Popper: PopperInterface = ({
           ? [
               {
                 name: 'arrow',
-                options: { element: arrowElement, padding: 5 },
+                options: { element: arrowElement, padding: 8 },
               },
             ]
           : []),
         {
           name: 'offset',
-          options: { offset: [10, 10] },
+          options: { offset: [0, hasArrow ? 8 : 0] },
         },
         { name: 'flip' },
         { name: 'preventOverflow' },
