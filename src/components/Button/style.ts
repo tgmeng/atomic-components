@@ -1,5 +1,5 @@
 import { css, keyframes } from '@emotion/core';
-import styled from '@emotion/styled';
+import { css as rawCss } from 'emotion';
 import { position } from 'polished';
 
 import { generate } from '@ant-design/colors';
@@ -286,4 +286,47 @@ export const iconStyle = css`
 
 export const reloadIconStyle = css`
   animation: ${spin} 1s linear infinite;
+`;
+
+/**
+ * ButtonGroup
+ */
+
+export const buttonGroupItemRawStyle = rawCss`
+  border-radius: 0 !important;
+`;
+
+export const buttonGroupStyle = css`
+  & > .${buttonGroupItemRawStyle} {
+    &:first-child {
+      border-top-left-radius: 2px !important;
+      border-bottom-left-radius: 2px !important;
+    }
+
+    &:last-child {
+      border-top-right-radius: 2px !important;
+      border-bottom-right-radius: 2px !important;
+    }
+
+    &:not(last-child) {
+      &:after {
+        z-index: 1;
+        position: absolute;
+        right: -1px;
+        top: -1px;
+        bottom: -1px;
+        border-right: 1px solid transparent;
+        transition: all 0.3s;
+        content: '';
+      }
+
+      &:hover:after {
+        border-right-color: ${Color.Primary};
+      }
+    }
+  }
+
+  & > .${buttonGroupItemRawStyle}+.${buttonGroupItemRawStyle} {
+    margin-left: -1px;
+  }
 `;

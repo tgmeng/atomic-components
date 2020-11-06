@@ -1,3 +1,4 @@
+import { ReactElement } from 'react';
 import { Intent as CommonIntent, Size as CommonSize } from '../../types';
 
 export type Size = CommonSize;
@@ -13,3 +14,7 @@ export type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
   disabled?: boolean;
   loading?: boolean;
 };
+
+export interface ButtonGroupProps {
+  children: ReactElement | ReactElement[];
+}
