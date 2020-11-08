@@ -1,0 +1,33 @@
+---
+name: Dropdown
+menu: Components
+---
+
+import { Playground, Props } from 'docz';
+import Dropdown from './';
+
+# Dropdown
+
+## 基本用法
+
+<Playground>
+  <Dropdown overlay={<div>test</div>}>
+    <span>test</span>
+  </Dropdown>
+</Playground>
+
+## 属性
+
+<Props of={Dropdown} />
+
+# Dropdown.Button
+
+## 基本用法
+
+<Playground>
+  <Dropdown.Button overlay={<div>Content</div>}>按钮</Dropdown.Button>
+</Playground>
+
+## 属性
+
+<Props of={Dropdown.Button} />
