@@ -79,7 +79,6 @@ const Popper: PopperInterface = ({
     referenceElement,
     popperElement,
     {
-      ...restProps,
       modifiers: [
         ...(hasArrow
           ? [
@@ -146,6 +145,7 @@ const Popper: PopperInterface = ({
   return (
     <>
       {React.cloneElement(children, {
+        ...restProps,
         ...triggerProps,
         ref: setReferenceElement,
       })}
