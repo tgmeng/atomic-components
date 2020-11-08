@@ -13,8 +13,8 @@ const DropdownButton: React.FC<DropdownProps> = ({
   ...props
 }) => (
   <ButtonGroup>
-    <Button>{children}</Button>
-    <Popper hasArrow={hasArrow} {...props} content={overlay}>
+    <Button {...props}>{children}</Button>
+    <Popper hasArrow={hasArrow} content={overlay}>
       <Button>...</Button>
     </Popper>
   </ButtonGroup>
