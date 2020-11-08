@@ -15,7 +15,7 @@ export function withProps<P, OP extends {}>(
     options?.displayName ||
     `withProps(${
       typeof Tag === 'string'
-        ? `${Tag[0].toUpperCase()}${Tag.slice(1)}`
+        ? `${Tag.slice(0, 1).toUpperCase()}${Tag.slice(1)}`
         : getDisplayName(Tag)
     })`;
 
