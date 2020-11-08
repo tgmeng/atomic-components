@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import { withProps } from '../../utils/component';
 
-import LayoutContext from './Context';
+import LayoutContext from './LayoutContext';
 import Aside from './Aside';
 
 import {

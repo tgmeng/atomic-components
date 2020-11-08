@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import { asideStyle } from './style';
 
-import { useLayoutContext } from './Context';
+import { useLayoutContext } from './LayoutContext';
 import { AsideProps } from './type';
 
 let id = 0;
