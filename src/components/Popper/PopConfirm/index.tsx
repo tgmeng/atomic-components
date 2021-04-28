@@ -4,8 +4,8 @@ import { createStyledHTMLComponent } from '../../../utils/component';
 import { Button } from '../../Button';
 import { Popper } from '../Popper';
 
-import { PopConfirmProps } from './type';
-import { actionsStyle, buttonStyle, contentStyle, messageStyle } from './style';
+import { PopConfirmProps } from './types';
+import { actionsStyle, buttonStyle, contentStyle, messageStyle } from './styles';
 
 const initialState = {
   isConfirmLoading: false,
