@@ -1,7 +1,7 @@
-import styled from '@emotion/styled';
-import { css } from '@emotion/core';
+import { css } from '@emotion/css';
+import { refStyle } from '../../utils/style';
 
-export const Content = styled('div')`
+export const contentStyle = css`
   box-sizing: border-box;
   background-color: #fff;
   background-clip: padding-box;
@@ -48,7 +48,7 @@ export function getArrowStyle(
   }
 }
 
-export const Arrow = styled('div')`
+export const arrowStyle = css`
   &:after {
     display: block;
     background: 0 0;
@@ -58,34 +58,34 @@ export const Arrow = styled('div')`
     content: '';
   }
 
-  ${Content}[data-popper-placement^='top'] & {
+  ${refStyle(contentStyle)}[data-popper-placement^='top'] & {
     bottom: -4px;
   }
-  ${Content}[data-popper-placement^='top'] &:after {
+  ${refStyle(contentStyle)}[data-popper-placement^='top'] &:after {
     ${getArrowStyle('bottom', '#fff')}
     box-shadow: 3px 3px 7px rgba(0, 0, 0, 0.07);
   }
 
-  ${Content}[data-popper-placement^='bottom'] & {
+  ${refStyle(contentStyle)}[data-pocontentSTylepper-placement^='bottom'] & {
     top: -4px;
   }
-  ${Content}[data-popper-placement^='bottom'] &:after {
+  ${refStyle(contentStyle)}[data-popper-placement^='bottom'] &:after {
     ${getArrowStyle('top', '#fff')}
     box-shadow: -2px -2px 5px rgba(0, 0, 0, 0.06);
   }
 
-  ${Content}[data-popper-placement^='left'] & {
+  ${refStyle(contentStyle)}[data-popper-placement^='left'] & {
     right: -4px;
   }
-  ${Content}[data-popper-placement^='left'] &:after {
+  ${refStyle(contentStyle)}[data-popper-placement^='left'] &:after {
     ${getArrowStyle('right', '#fff')}
     box-shadow: 3px -3px 7px rgba(0, 0, 0, 0.07);
   }
 
-  ${Content}[data-popper-placement^='right'] & {
+  ${refStyle(contentStyle)}[data-popper-placement^='right'] & {
     left: -4px;
   }
-  ${Content}[data-popper-placement^='right'] &:after {
+  ${refStyle(contentStyle)}[data-popper-placement^='right'] &:after {
     ${getArrowStyle('left', '#fff')}
     box-shadow: -3px 3px 7px rgba(0, 0, 0, 0.07);
   }

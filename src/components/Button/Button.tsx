@@ -1,4 +1,5 @@
 import * as React from 'react';
+import clsx from 'clsx';
 
 import { createCommonStyledIcon } from '../Icon/style';
 
@@ -9,20 +10,23 @@ import { reloadIconStyle, iconStyle, getButtonStyle } from './style';
 
 const ReloadIcon = createCommonStyledIcon(OriginalReloadIcon);
 
-const Button = React.forwardRef<ButtonRef, ButtonProps>(function Button(
-  { children, loading, ...props },
+export const Button = React.forwardRef<ButtonRef, ButtonProps>(function Button(
+  { className, children, loading, ...props },
   ref
 ) {
   return (
-    <button ref={ref} css={getButtonStyle(props)} type="button" {...props}>
+    <button
+      ref={ref}
+      className={clsx(getButtonStyle(props), className)}
+      type="button"
+      {...props}
+    >
       {loading && (
-        <span css={iconStyle}>
-          <ReloadIcon css={reloadIconStyle} />
+        <span className={iconStyle}>
+          <ReloadIcon className={reloadIconStyle} />
         </span>
       )}
       <span>{children}</span>
     </button>
   );
 });
-
-export default Button;

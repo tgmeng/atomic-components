@@ -1,11 +1,23 @@
 import * as React from 'react';
 
-import Popper from '../Popper';
+import { createStyledHTMLComponent } from '../../../utils/component';
 
-import { PopoverProps } from './type';
-import { Title, Content } from './style';
+import { Popper } from '../Popper';
 
-const Popover: React.FC<PopoverProps> = ({
+import { PopoverProps } from './types';
+import { titleStyle, contentStyle } from './styles';
+
+export const Title = createStyledHTMLComponent<HTMLDivElement>(
+  'div',
+  titleStyle
+);
+
+export const Content = createStyledHTMLComponent<HTMLDivElement>(
+  'div',
+  contentStyle
+);
+
+export const Popover: React.FC<PopoverProps> = ({
   title,
   content,
   children,
@@ -25,5 +37,3 @@ const Popover: React.FC<PopoverProps> = ({
     </Popper>
   );
 };
-
-export default Popover;

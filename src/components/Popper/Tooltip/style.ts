@@ -1,4 +1,4 @@
-import { css } from '@emotion/core';
+import { css } from '@emotion/css';
 import { getArrowStyle, Content } from '../style';
 
 export const contentStyle = css`

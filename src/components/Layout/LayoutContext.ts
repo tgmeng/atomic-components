@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { LayoutContextProps } from './type';
 
-const LayoutContext = React.createContext<LayoutContextProps>({
+export const LayoutContext = React.createContext<LayoutContextProps>({
   asideHook: {
     add: () => {},
     remove: () => {},
@@ -11,5 +11,3 @@ const LayoutContext = React.createContext<LayoutContextProps>({
 export const useLayoutContext = () => {
   return React.useContext(LayoutContext);
 };
-
-export default LayoutContext;

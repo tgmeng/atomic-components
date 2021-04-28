@@ -1,7 +1,7 @@
-import InternalRadio from './Radio';
-import InternalRadioButton from './RadioButton';
-import RadioGroup from './RadioGroup';
-import { RadioProps, RadioButtonProps } from './type';
+import { Radio as InternalRadio } from './Radio';
+import { RadioButton as InternalRadioButton } from './RadioButton';
+import { RadioGroup } from './RadioGroup';
+import { RadioProps, RadioButtonProps } from './types';
 
 export interface RadioInterface
   extends React.ForwardRefExoticComponent<
@@ -23,4 +23,4 @@ export interface RadioButtonInterface
 const RadioButton = InternalRadioButton as RadioButtonInterface;
 RadioButton.Group = RadioGroup;
 
-export { Radio as default, RadioButton };
+export { Radio, RadioButton };

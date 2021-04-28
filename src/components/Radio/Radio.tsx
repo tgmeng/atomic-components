@@ -1,35 +1,45 @@
 import * as React from 'react';
+import clsx from 'clsx';
 
 import { mergeRadioGroupContextProps } from './utils';
 
-import { RadioRef, RadioProps } from './type';
+import { RadioRef, RadioProps } from './types';
 import {
   radioWrapperBaseStyle,
   radioWrapperStyle,
-  RadioInput,
-  RadioDot,
-  RadioText,
   radioInteractiveStyle,
-} from './style';
+  radioDotStyle,
+  radioTextStyle,
+  radioInputStyle,
+} from './styles';
 
 import { useRadioGroupContext } from './RadioGroupContext';
 
-const Radio = React.forwardRef<RadioRef, RadioProps>(
-  ({ children, ...props }, ref) => {
+export const Radio = React.forwardRef<RadioRef, RadioProps>(
+  ({ className, children, ...props }, ref) => {
     const context = useRadioGroupContext();
     const newProps = mergeRadioGroupContextProps(context, props);
 
     return (
       // eslint-disable-next-line jsx-a11y/label-has-associated-control
       <label
-        css={[radioWrapperBaseStyle, radioWrapperStyle, radioInteractiveStyle]}
+        className={clsx(
+          radioWrapperBaseStyle,
+          radioWrapperStyle,
+          radioInteractiveStyle,
+          className
+        )}
       >
-        <RadioInput type="radio" ref={ref} {...props} {...newProps} />
-        <RadioDot />
-        {children && <RadioText>{children}</RadioText>}
+        <input
+          className={radioInputStyle}
+          type="radio"
+          ref={ref}
+          {...props}
+          {...newProps}
+        />
+        <span className={radioDotStyle} />
+        {children && <span className={radioTextStyle}>{children}</span>}
       </label>
     );
   }
 );
-
-export default Radio;

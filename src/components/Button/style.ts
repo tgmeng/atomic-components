@@ -1,10 +1,9 @@
-import { css, keyframes } from '@emotion/core';
-import { css as rawCss } from 'emotion';
+import { css, keyframes } from '@emotion/css';
 import { position } from 'polished';
 
 import { generate } from '@ant-design/colors';
 
-import { changePXRelatively } from '../../utils/style';
+import { changePXRelatively, refStyle } from '../../utils/style';
 import {
   Color,
   FontSize,
@@ -292,12 +291,12 @@ export const reloadIconStyle = css`
  * ButtonGroup
  */
 
-export const buttonGroupItemRawStyle = rawCss`
+export const buttonGroupItemStyle = css`
   border-radius: 0 !important;
 `;
 
 export const buttonGroupStyle = css`
-  & > .${buttonGroupItemRawStyle} {
+  & > ${refStyle(buttonGroupItemStyle)} {
     &:first-child {
       border-top-left-radius: 2px !important;
       border-bottom-left-radius: 2px !important;
@@ -326,7 +325,10 @@ export const buttonGroupStyle = css`
     }
   }
 
-  & > .${buttonGroupItemRawStyle}+.${buttonGroupItemRawStyle} {
+  &
+    > ${refStyle(buttonGroupItemStyle)}+${refStyle(
+      buttonGroupItemStyle
+    )} {
     margin-left: -1px;
   }
 `;

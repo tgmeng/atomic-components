@@ -1,4 +1,14 @@
 import * as React from 'react';
+import {
+  FC,
+  useCallback,
+  useRef,
+  useState,
+  FocusEvent,
+  MouseEvent,
+  ChangeEvent,
+} from 'react';
+import clsx from 'clsx';
 
 import { ReactComponent as ClearIcon } from '../../resources/svgs/circle-fill/close.svg';
 
@@ -12,7 +22,7 @@ import {
   getInputWrapperStyle,
 } from './style';
 
-const Input: React.FC<InputProps> = ({
+export const Input: FC<InputProps> = ({
   value,
   size = 'normal',
   prefix,
@@ -26,29 +36,29 @@ const Input: React.FC<InputProps> = ({
   onBlur,
   ...restProps
 }) => {
-  const inputRef = React.useRef<HTMLInputElement>(null);
-  const [isFocus, setIsFocus] = React.useState(false);
+  const inputRef = useRef<HTMLInputElement>(null);
+  const [isFocus, setIsFocus] = useState(false);
 
-  const focus = React.useCallback(() => inputRef.current?.focus(), []);
+  const focus = useCallback(() => inputRef.current?.focus(), []);
 
-  const handleFocus = React.useCallback(
-    (event: React.FocusEvent<HTMLInputElement>) => {
+  const handleFocus = useCallback(
+    (event: FocusEvent<HTMLInputElement>) => {
       setIsFocus(true);
       onFocus?.(event);
     },
     [onFocus]
   );
 
-  const handleBlur = React.useCallback(
-    (event: React.FocusEvent<HTMLInputElement>) => {
+  const handleBlur = useCallback(
+    (event: FocusEvent<HTMLInputElement>) => {
       setIsFocus(false);
       onBlur?.(event);
     },
     [onBlur]
   );
 
-  const handleClear = React.useCallback(
-    (event: React.MouseEvent<SVGElement, MouseEvent>) => {
+  const handleClear = useCallback(
+    (event: MouseEvent<SVGElement, MouseEvent>) => {
       const { current: _inputRef } = inputRef;
       if (!_inputRef) {
         return;
@@ -64,7 +74,7 @@ const Input: React.FC<InputProps> = ({
         const originalInputValue = _inputRef.value;
         _inputRef.value = '';
 
-        const wrappedEvent: React.ChangeEvent<HTMLInputElement> = Object.create(
+        const wrappedEvent: ChangeEvent<HTMLInputElement> = Object.create(
           event
         );
         wrappedEvent.target = _inputRef;
@@ -80,18 +90,20 @@ const Input: React.FC<InputProps> = ({
   return (
     // eslint-disable-next-line jsx-a11y/no-static-element-interactions, jsx-a11y/click-events-have-key-events
     <span
-      css={getInputWrapperStyle({
+      className={getInputWrapperStyle({
         size,
         isFocus,
         isDisabled: disabled,
       })}
       onClick={focus}
     >
-      {prefix && <span css={[getInputSpanStyle(), prefixStyle]}>{prefix}</span>}
+      {prefix && (
+        <span className={clsx(getInputSpanStyle(), prefixStyle)}>{prefix}</span>
+      )}
       <input
         {...restProps}
         ref={inputRef}
-        css={getInputStyle({ size, isDisabled: Boolean(disabled) })}
+        className={getInputStyle({ size, isDisabled: Boolean(disabled) })}
         value={value}
         readOnly={readOnly}
         disabled={disabled}
@@ -101,19 +113,19 @@ const Input: React.FC<InputProps> = ({
       />
       {isClearable && !readOnly && (
         <span
-          css={[
+          className={clsx(
             getInputSpanStyle({
               isHidden: Boolean(!value || `${value}`.length === 0),
             }),
-            suffixStyle,
-          ]}
+            suffixStyle
+          )}
         >
-          <ClearIcon css={iconStyle} onClick={handleClear} />
+          <ClearIcon className={iconStyle} onClick={handleClear} />
         </span>
       )}
-      {suffix && <span css={[getInputSpanStyle(), suffixStyle]}>{suffix}</span>}
+      {suffix && (
+        <span className={clsx(getInputSpanStyle(), suffixStyle)}>{suffix}</span>
+      )}
     </span>
   );
 };
-
-export default Input;

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { RadioChangeEvent, BaseRadioProps, RadioGroupProps } from './type';
+import { RadioChangeEvent, BaseRadioProps, RadioGroupProps } from './types';
 
 export function mergeRadioGroupContextProps<T extends BaseRadioProps>(
   context: RadioGroupProps | null,

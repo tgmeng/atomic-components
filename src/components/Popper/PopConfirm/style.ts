@@ -1,18 +1,17 @@
-import styled from '@emotion/styled';
-import { css } from '@emotion/core';
+import { css } from '@emotion/css';
 
-export const Content = styled('div')`
+export const contentStyle = css`
   padding: 12px 16px;
 `;
 
-export const Message = styled('div')`
+export const messageStyle = css`
   position: relative;
   padding: 4px 0 12px;
   color: rgba(0, 0, 0, 0.65);
   font-size: 14px;
 `;
 
-export const Actions = styled('div')`
+export const actionsStyle = css`
   margin-bottom: 4px;
   text-align: right;
 `;

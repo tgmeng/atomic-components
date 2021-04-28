@@ -1,9 +1,9 @@
-import styled from '@emotion/styled';
+import { css } from '@emotion/css';
 import { position, size } from 'polished';
 
 import { BaseColor } from '../../styles';
 
-export const ModalWrapper = styled('div')`
+export const modalWrapperStyle = css`
   box-sizing: border-box;
   position: fixed;
   top: 0%;
@@ -16,7 +16,7 @@ export const ModalWrapper = styled('div')`
   transition: all 0.3s;
 `;
 
-export const Backdrop = styled('div')`
+export const backdropStyle = css`
   ${position('absolute', 0)};
   display: block;
   ${size('100%')};
@@ -24,7 +24,7 @@ export const Backdrop = styled('div')`
   outline: none;
 `;
 
-export const Modal = styled('div')`
+export const modalStyle = css`
   position: relative;
   max-width: 100%;
   max-height: 100%;

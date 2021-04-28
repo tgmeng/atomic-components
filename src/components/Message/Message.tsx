@@ -1,19 +1,21 @@
 import * as React from 'react';
-import * as ReactDOM from 'react-dom';
+import { createPortal } from 'react-dom';
+import { FC, useEffect } from 'react';
+import clsx from 'clsx';
 
 import { createOpenStaticOpenableElementFn } from '../../utils/staticOpenableElement';
-import createUseAutoPortalContainer from '../../hooks/createUseAutoPortalContainer';
-import useAutoRef from '../../hooks/useAutoRef';
+import { createUseAutoPortalContainer } from '../../hooks/createUseAutoPortalContainer';
+import { useAutoRef } from '../../hooks/useAutoRef';
 
 import { IconByIntent } from '../Icon';
 
-import { MessageProps } from './type';
+import { MessageProps } from './types';
 import {
   messageContainerVanillaStyle,
   messageWrapperStyle,
-  Message as StyledMessage,
+  messageStyle,
   getIconStyle,
-} from './style';
+} from './styles';
 
 const useAutoPortalContainer = createUseAutoPortalContainer({
   maxChildrenCount: 5,
@@ -25,7 +27,7 @@ const useAutoPortalContainer = createUseAutoPortalContainer({
   },
 });
 
-export interface MessageInterface extends React.SFC<MessageProps> {
+export interface MessageInterface extends FC<MessageProps> {
   info: (initialState: MessageProps) => void;
   success: (initialState: MessageProps) => void;
   warn: (initialState: MessageProps) => void;
@@ -33,6 +35,7 @@ export interface MessageInterface extends React.SFC<MessageProps> {
 }
 
 const Message: MessageInterface = ({
+  className,
   isOpen,
   duration = 3000,
   intent = 'info',
@@ -48,7 +51,7 @@ const Message: MessageInterface = ({
   });
   const onCloseRef = useAutoRef(_onClose);
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (isOpen) {
       const timerId = setTimeout(() => {
         onCloseRef.current?.();
@@ -66,12 +69,12 @@ const Message: MessageInterface = ({
     return null;
   }
 
-  return ReactDOM.createPortal(
-    <div css={messageWrapperStyle}>
-      <StyledMessage {...restProps}>
-        <Icon css={getIconStyle({ intent })} />
+  return createPortal(
+    <div className={messageWrapperStyle}>
+      <div {...restProps} className={clsx(messageStyle, className)}>
+        <Icon className={getIconStyle({ intent })} />
         <span>{children}</span>
-      </StyledMessage>
+      </div>
     </div>,
     container
   );
@@ -90,4 +93,4 @@ Message.error = createOpenStaticOpenableElementFn(Message, {
   intent: 'danger',
 });
 
-export default Message;
+export { Message };

@@ -1,11 +1,11 @@
-import { css } from '@emotion/core';
-import styled from '@emotion/styled';
+import { css } from '@emotion/css';
 import { math } from 'polished';
 import { generate } from '@ant-design/colors';
 
+import { refStyle } from '../../utils/style';
 import { Color, FontSize, TextColor, LineHeight } from '../../styles';
 
-import { Intent, AlertProps } from './type';
+import { Intent, AlertContainerProps } from './types';
 
 const generateAlertColorObject = (color: string) => {
   return {
@@ -27,12 +27,12 @@ const getAlertColor = ({
   border: 1px solid ${borderColor};
 `;
 
-export const AlertMessage = styled('div')`
+export const alertMessageStyle = css`
   color: ${TextColor.Heading};
   line-height: ${LineHeight.Base};
 `;
 
-export const AlertDescription = styled('div')`
+export const alertDescriptionStyle = css`
   margin-top: 5px;
   font-size: ${FontSize.Base};
   color: ${TextColor.Base};
@@ -46,11 +46,14 @@ const iconColorByIntent: Record<Intent, string> = {
   warning: Color.Warning,
 };
 
-export const Icon = styled('span')<{ intent: Intent }>`
+export const iconStyle = css`
   position: absolute;
-  color: ${(props) => iconColorByIntent[props.intent || 'info']};
   left: 8px;
   line-height: 1;
+`;
+
+export const getIconStyle = (props: { intent: Intent }) => css`
+  color: ${iconColorByIntent[props.intent || 'info']};
 `;
 
 const colorObjectByIntent: Record<Intent, AlertColorObject> = {
@@ -60,29 +63,27 @@ const colorObjectByIntent: Record<Intent, AlertColorObject> = {
   warning: generateAlertColorObject(Color.Warning),
 };
 
-export type StyledAlertProps = Pick<AlertProps, 'intent' | 'description'>;
-
-export const getAlertLayoutStyle = (props: StyledAlertProps) => {
+export const getAlertLayoutStyle = (props: AlertContainerProps) => {
   const fontSize = props.description ? FontSize.Medium : FontSize.Base;
   const iconSize = props.description ? FontSize.Large : FontSize.Medium;
 
   return css`
     padding-left: ${math(`8px + ${iconSize} + 5px`)};
 
-    ${AlertMessage} {
+    ${refStyle(alertMessageStyle)} {
       font-size: ${fontSize};
     }
-    ${Icon} {
+    ${refStyle(iconStyle)} {
       top: ${math(`8px + (${LineHeight.Base} - ${iconSize}) / 2`)};
       font-size: ${iconSize};
     }
   `;
 };
 
-export const Alert = styled('div')<StyledAlertProps>`
+export const getAlertContainerStyle = (props: AlertContainerProps) => css`
   position: relative;
   padding: 8px;
-  ${(props) => getAlertColor(colorObjectByIntent[props.intent || 'info'])};
+  ${getAlertColor(colorObjectByIntent[props.intent || 'info'])};
   border-radius: 2px;
-  ${getAlertLayoutStyle};
+  ${getAlertLayoutStyle(props)};
 `;

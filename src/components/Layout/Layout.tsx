@@ -1,9 +1,10 @@
 import * as React from 'react';
+import { FC, useMemo, useState } from 'react';
 
-import { withProps } from '../../utils/component';
+import { createStyledHTMLComponent } from '../../utils/component';
 
-import LayoutContext from './LayoutContext';
-import Aside from './Aside';
+import { LayoutContext } from './LayoutContext';
+import { Aside } from './Aside';
 
 import {
   getLayoutStyle,
@@ -13,17 +14,17 @@ import {
 } from './style';
 import { LayoutContextProps } from './type';
 
-export type LayoutInterface = React.FC & {
-  Header: React.FC;
+export type LayoutInterface = FC & {
+  Header: FC;
   Aside: typeof Aside;
-  Content: React.FC;
-  Footer: React.FC;
+  Content: FC;
+  Footer: FC;
 };
 
 const Layout = ((props) => {
-  const [asides, setAsides] = React.useState<string[]>([]);
+  const [asides, setAsides] = useState<string[]>([]);
 
-  const contextValue = React.useMemo<LayoutContextProps>(
+  const contextValue = useMemo<LayoutContextProps>(
     () => ({
       asideHook: {
         add: (id: string) => setAsides((ids) => [...ids, id]),
@@ -40,7 +41,7 @@ const Layout = ((props) => {
     <LayoutContext.Provider value={contextValue}>
       <section
         {...props}
-        css={getLayoutStyle({
+        className={getLayoutStyle({
           hasAside,
         })}
       />
@@ -48,15 +49,12 @@ const Layout = ((props) => {
   );
 }) as LayoutInterface;
 
-Layout.Header = withProps('header', {
-  css: headerStyle,
-});
-Layout.Aside = Aside;
-Layout.Content = withProps('main', {
-  css: contentStyle,
-});
-Layout.Footer = withProps('footer', {
-  css: footerStyle,
-});
+Layout.Header = createStyledHTMLComponent<HTMLElement>('header', headerStyle);
 
-export default Layout;
+Layout.Aside = Aside;
+
+Layout.Content = createStyledHTMLComponent<HTMLElement>('main', contentStyle);
+
+Layout.Footer = createStyledHTMLComponent<HTMLElement>('footer', footerStyle);
+
+export { Layout };

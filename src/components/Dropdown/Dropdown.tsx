@@ -2,9 +2,9 @@ import * as React from 'react';
 
 import { DropdownProps } from './type';
 
-import Popper from '../Popper/Popper';
+import { Popper } from '../Popper/Popper';
 
-const Dropdown: React.FC<DropdownProps> = ({
+export const Dropdown: React.FC<DropdownProps> = ({
   hasArrow = false,
   overlay,
   children,
@@ -14,5 +14,3 @@ const Dropdown: React.FC<DropdownProps> = ({
     {React.Children.only(children)}
   </Popper>
 );
-
-export default Dropdown;

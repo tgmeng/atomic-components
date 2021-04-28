@@ -1,9 +1,9 @@
 import * as React from 'react';
 
-import usePrevious from '../../hooks/usePrevious';
+import { usePrevious } from '../../hooks/usePrevious';
 
 import { ModalManagedProps, ModalProps } from './types';
-import ModalManagerModel from './manager';
+import { ModalManagerModel } from './manager';
 
 /**
  * Modal manager singleton

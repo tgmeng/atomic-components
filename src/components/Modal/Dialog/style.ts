@@ -1,5 +1,4 @@
-import styled from '@emotion/styled';
-import { css } from '@emotion/core';
+import { css } from '@emotion/css';
 import { ellipsis } from 'polished';
 
 import {
@@ -9,11 +8,11 @@ import {
   resetBox,
 } from '../../../styles';
 
-export const Dialog = styled('div')`
+export const dialogStyle = css`
   width: 520px;
 `;
 
-export const Header = styled('div')`
+export const headerStyle = css`
   display: flex;
   /* align-items: stretch; */
   justify-content: space-between;
@@ -30,7 +29,7 @@ export const titleStyle = css`
   ${ellipsis()}
 `;
 
-export const CloseButton = styled('button')`
+export const closeButtonStyle = css`
   ${flexShrinkStyle};
   width: 56px;
   color: rgba(0, 0, 0, 0.45);
@@ -47,14 +46,14 @@ export const CloseButton = styled('button')`
   }
 `;
 
-export const Content = styled('div')`
+export const contentStyle = css`
   padding: 24px;
   font-size: 14px;
   line-height: 1.5715;
   word-wrap: break-word;
 `;
 
-export const Actions = styled('div')`
+export const actionsStyle = css`
   padding: 10px 16px;
   text-align: right;
   background: 0 0;

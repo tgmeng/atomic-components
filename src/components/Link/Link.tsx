@@ -1,16 +1,26 @@
 import * as React from 'react';
+import clsx from 'clsx';
 
-import { LinkProps } from './type';
-import { Link as StyledLink } from './style';
+import { LinkProps } from './types';
+import { linkStyle } from './styles';
 
-const Link: React.FC<LinkProps> = ({ target, rel, children, ...restProps }) => {
+export const Link: React.FC<LinkProps> = ({
+  className,
+  target,
+  rel,
+  children,
+  ...restProps
+}) => {
   const _rel =
     target === '_blank' ? `${rel ? `${rel} ` : ''}noopener noreferrer` : rel;
   return (
-    <StyledLink {...restProps} target={target} rel={_rel}>
+    <a
+      {...restProps}
+      className={clsx(linkStyle, className)}
+      target={target}
+      rel={_rel}
+    >
       {children}
-    </StyledLink>
+    </a>
   );
 };
-
-export default Link;

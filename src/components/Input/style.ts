@@ -1,4 +1,4 @@
-import { css } from '@emotion/core';
+import { css } from '@emotion/css';
 import { transparentize } from 'polished';
 
 import { generate } from '@ant-design/colors';

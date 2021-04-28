@@ -1,25 +1,26 @@
 import * as React from 'react';
-import cx from 'classnames';
+import clsx from 'clsx';
 
 import { ButtonGroupProps } from './type';
-import { buttonGroupStyle, buttonGroupItemRawStyle } from './style';
+import { buttonGroupStyle, buttonGroupItemStyle } from './style';
 
-const ButtonGroup = ({ children, ...props }: ButtonGroupProps) => {
+export const ButtonGroup = ({ children, ...props }: ButtonGroupProps) => {
   return (
-    <div css={buttonGroupStyle} {...props}>
+    <div className={buttonGroupStyle} {...props}>
       {Array.isArray(children)
         ? children.map((node) =>
             React.cloneElement(node, {
               ...node.props,
-              className: cx([node.props.className, buttonGroupItemRawStyle]),
+              className: clsx([node.props.className, buttonGroupItemStyle]),
             })
           )
         : React.cloneElement(children, {
             ...children.props,
-            className: cx([children.props.className, buttonGroupItemRawStyle]),
+            className: clsx([
+              children.props.className,
+              buttonGroupItemStyle,
+            ]),
           })}
     </div>
   );
 };
-
-export default ButtonGroup;

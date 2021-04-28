@@ -1,17 +1,19 @@
 import * as React from 'react';
+import clsx from 'clsx';
 
-import { RadioRef, RadioButtonProps } from './type';
+import { RadioRef, RadioButtonProps } from './types';
 import {
-  RadioInput,
   radioWrapperBaseStyle,
-  RadioButton as StyledRadioButton,
   getRadioButtonWrapperStyle,
-} from './style';
+  radioInputStyle,
+  radioButtonStyle,
+  getRadioButtonSizeStyle,
+} from './styles';
 
 import { mergeRadioGroupContextProps } from './utils';
 import { useRadioButtonGroupContext } from './RadioGroupContext';
 
-const RadioButton = React.forwardRef<RadioRef, RadioButtonProps>(
+export const RadioButton = React.forwardRef<RadioRef, RadioButtonProps>(
   ({ children, ...props }, ref) => {
     const context = useRadioButtonGroupContext();
     const newProps = mergeRadioGroupContextProps(context, props);
@@ -29,20 +31,31 @@ const RadioButton = React.forwardRef<RadioRef, RadioButtonProps>(
     return (
       // eslint-disable-next-line jsx-a11y/label-has-associated-control
       <label
-        css={[
+        className={clsx(
           radioWrapperBaseStyle,
           getRadioButtonWrapperStyle({
             variant,
-          }),
-        ]}
+          })
+        )}
       >
-        <RadioInput type="radio" ref={ref} {...restProps} {...restNewProps} />
-        <StyledRadioButton variant={variant} size={size}>
+        <input
+          className={radioInputStyle}
+          type="radio"
+          ref={ref}
+          {...restProps}
+          {...restNewProps}
+        />
+        <span
+          className={clsx(
+            radioButtonStyle,
+            getRadioButtonSizeStyle({
+              size,
+            })
+          )}
+        >
           {children}
-        </StyledRadioButton>
+        </span>
       </label>
     );
   }
 );
-
-export default RadioButton;

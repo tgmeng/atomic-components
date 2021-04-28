@@ -22,7 +22,7 @@ export interface ModalManager {
   baseZIndex: number;
 }
 
-const ModalManagerModel = {
+export const ModalManagerModel = {
   create(options: { zIndex: number }): ModalManager {
     return {
       id: 0,
@@ -162,5 +162,3 @@ const ModalManagerModel = {
     );
   },
 };
-
-export default ModalManagerModel;

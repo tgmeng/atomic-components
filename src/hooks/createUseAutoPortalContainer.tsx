@@ -2,8 +2,8 @@ import * as React from 'react';
 
 import { OpenableProps } from '../types';
 
-import useUpdate from './useUpdate';
-import useAutoRef from './useAutoRef';
+import { useUpdate } from './useUpdate';
+import { useAutoRef } from './useAutoRef';
 
 export interface CreateComponentStackOptions {
   maxChildrenCount?: number;
@@ -17,7 +17,7 @@ export interface RefItem {
   update(): void;
 }
 
-export default function createUseAutoPortalContainer({
+export function createUseAutoPortalContainer({
   maxChildrenCount = 5,
   onCreatingContainer,
 }: CreateComponentStackOptions) {

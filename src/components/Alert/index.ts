@@ -1,2 +1,2 @@
-export * from './type';
-export { default } from './Alert';
+export * from './types';
+export { Alert } from './Alert';

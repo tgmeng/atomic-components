@@ -1,2 +1,2 @@
-export { default } from './Popper';
-export { default as Popover } from './Popover';
+export { Popper } from './Popper';
+export { Popover } from './Popover';

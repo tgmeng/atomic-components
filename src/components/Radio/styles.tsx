@@ -1,9 +1,9 @@
-import { css } from '@emotion/core';
-import styled from '@emotion/styled';
+import { css } from '@emotion/css';
 
 import { size, position } from 'polished';
+import { refStyle } from '../../utils/style';
 
-import { RadioButtonSize, RadioButtonVariant } from './type';
+import { RadioButtonSize, RadioButtonVariant } from './types';
 
 /**
  * Common
@@ -13,7 +13,7 @@ export const radioGroupStyle = css`
   font-size: 0;
 `;
 
-export const RadioInput = styled.input`
+export const radioInputStyle = css`
   display: none;
 `;
 
@@ -37,7 +37,7 @@ export const radioWrapperStyle = css`
   white-space: nowrap;
 `;
 
-export const RadioDot = styled.span`
+export const radioDotStyle = css`
   position: relative;
   display: block;
   ${size('16px')};
@@ -61,7 +61,7 @@ export const RadioDot = styled.span`
   }
 `;
 
-export const RadioText = styled.span`
+export const radioTextStyle = css`
   padding-right: 8px;
   padding-left: 8px;
 `;
@@ -69,21 +69,23 @@ export const RadioText = styled.span`
 export const radioInteractiveStyle = css`
   cursor: pointer;
 
-  ${RadioInput}:checked ~ ${RadioDot}:after {
+  ${refStyle(radioInputStyle)}:checked ~ ${refStyle(radioDotStyle)}:after {
     background-color: #1890ff;
   }
 
-  ${RadioInput}:disabled ~ ${RadioDot} {
+  ${refStyle(radioInputStyle)}:disabled ~ ${refStyle(radioDotStyle)} {
     background-color: #f5f5f5;
     border-color: #d9d9d9;
     cursor: not-allowed;
   }
 
-  ${RadioInput}:checked:disabled ~ ${RadioDot}:after {
+  ${refStyle(radioInputStyle)}:checked:disabled ~ ${refStyle(
+  radioDotStyle
+)}:after {
     background-color: rgba(0,0,0,.2);
   }
 
-  ${RadioInput}:disabled ~ ${RadioText} {
+  ${refStyle(radioInputStyle)}:disabled ~ ${refStyle(radioTextStyle)} {
     color: rgba(0,0,0,.25);
     cursor: not-allowed;
   }
@@ -122,10 +124,7 @@ export const getRadioButtonSizeStyle = ({
   }
 };
 
-export const RadioButton = styled.span<{
-  size?: RadioButtonSize;
-  variant?: RadioButtonVariant;
-}>`
+export const radioButtonStyle = css`
   position: relative;
   margin: 0;
   padding: 0 15px;
@@ -139,8 +138,6 @@ export const RadioButton = styled.span<{
   transition: color 0.3s, background 0.3s, border-color 0.3s, box-shadow 0.3s;
   cursor: pointer;
 
-  ${getRadioButtonSizeStyle};
-
   &:hover {
     color: #1890ff;
   }
@@ -152,12 +149,12 @@ export const getRadioButtonWrapperStyle = ({
   variant?: RadioButtonVariant;
 }) => {
   const baseStyle = css`
-    &:first-of-type ${RadioButton} {
+    &:first-of-type ${refStyle(radioButtonStyle)} {
       border-left: 1px solid #d9d9d9;
       border-radius: 2px 0 0 2px;
     }
 
-    &:not(:first-of-type) ${RadioButton}:before {
+    &:not(:first-of-type) ${refStyle(radioButtonStyle)}:before {
       display: block;
       position: absolute;
       top: -1px;
@@ -168,22 +165,24 @@ export const getRadioButtonWrapperStyle = ({
       content: '';
     }
 
-    &:last-of-type ${RadioButton} {
+    &:last-of-type ${refStyle(radioButtonStyle)} {
       border-radius: 0 2px 2px 0;
     }
 
-    /** for RadioButton */
-    ${RadioButton}:before {
+    /** for radioButtonStyle */
+    ${refStyle(radioButtonStyle)}:before {
       z-index: -1;
     }
 
-    ${RadioInput}:disabled ~ ${RadioButton} {
+    ${refStyle(radioInputStyle)}:disabled ~ ${refStyle(radioButtonStyle)} {
       color: rgba(0,0,0,.25);
       background-color: #f5f5f5;
       border-color: #d9d9d9;
     }
 
-    ${RadioInput}:checked:disabled ~ ${RadioButton} {
+    ${refStyle(radioInputStyle)}:checked:disabled ~ ${refStyle(
+    radioButtonStyle
+  )} {
       background-color: #e6e6e6;
     }
   `;
@@ -192,7 +191,7 @@ export const getRadioButtonWrapperStyle = ({
   switch (variant) {
     case 'solid':
       variantStyle = css`
-        ${RadioInput}:checked ~ ${RadioButton} {
+        ${refStyle(radioInputStyle)}:checked ~ ${refStyle(radioButtonStyle)} {
           color: #fff;
           border-color: #1890ff;
           background-color: #1890ff;
@@ -207,7 +206,7 @@ export const getRadioButtonWrapperStyle = ({
     case 'default':
     default:
       variantStyle = css`
-        ${RadioInput}:checked ~ ${RadioButton} {
+        ${refStyle(radioInputStyle)}:checked ~ ${refStyle(radioButtonStyle)} {
           color: #1890ff;
           border-color: #1890ff;
 

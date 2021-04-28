@@ -2,13 +2,29 @@ import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 
 import { createOpenStaticOpenableElementFn } from '../../utils/staticOpenableElement';
+import { createStyledHTMLComponent } from '../../utils/component';
 
 import { ModalProps, ModalWithOpenStaticModalFn } from './types';
-import { Modal as StyledModal, ModalWrapper, Backdrop } from './style';
+import { backdropStyle, modalStyle, modalWrapperStyle } from './style';
 
 import { useModalManager } from './useModalManager';
 
 export type ModalInterface = ModalWithOpenStaticModalFn<ModalProps>;
+
+export const ModalWrapper = createStyledHTMLComponent<HTMLDivElement>(
+  'div',
+  modalWrapperStyle
+);
+
+export const Backdrop = createStyledHTMLComponent<HTMLDivElement>(
+  'div',
+  backdropStyle
+);
+
+export const ModalContainer = createStyledHTMLComponent<HTMLDivElement>(
+  'div',
+  modalStyle
+);
 
 const Modal: ModalInterface = ({
   isOpen,
@@ -51,9 +67,9 @@ const Modal: ModalInterface = ({
       onKeyDown={shouldCloseWhenPressESC ? onKeyDown : undefined}
     >
       <Backdrop tabIndex={-1} />
-      <StyledModal tabIndex={-1} {...restProps} ref={modalElementRef}>
+      <ModalContainer tabIndex={-1} {...restProps} ref={modalElementRef}>
         {children}
-      </StyledModal>
+      </ModalContainer>
     </ModalWrapper>,
     document.body
   );
@@ -61,4 +77,4 @@ const Modal: ModalInterface = ({
 
 Modal.open = createOpenStaticOpenableElementFn(Modal);
 
-export default Modal;
+export { Modal };

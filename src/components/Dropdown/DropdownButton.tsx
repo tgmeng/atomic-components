@@ -1,12 +1,14 @@
 import * as React from 'react';
 
-import Button, { ButtonGroup } from '../Button';
+import { ReactComponent as EllipsisIcon } from '../../resources/svgs/ellipsis.svg';
 
-import Popper from '../Popper/Popper';
+import { Button, ButtonGroup } from '../Button';
+
+import { Popper } from '../Popper/Popper';
 
 import { DropdownProps } from './type';
 
-const DropdownButton: React.FC<DropdownProps> = ({
+export const DropdownButton: React.FC<DropdownProps> = ({
   hasArrow = false,
   overlay,
   children,
@@ -15,9 +17,9 @@ const DropdownButton: React.FC<DropdownProps> = ({
   <ButtonGroup>
     <Button {...props}>{children}</Button>
     <Popper hasArrow={hasArrow} content={overlay}>
-      <Button>...</Button>
+      <Button>
+        <EllipsisIcon />
+      </Button>
     </Popper>
   </ButtonGroup>
 );
-
-export default DropdownButton;

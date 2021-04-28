@@ -1,3 +1,3 @@
 export * from './type';
-export { default as ButtonGroup } from './ButtonGroup';
-export { default } from './Button';
+export { ButtonGroup } from './ButtonGroup';
+export { Button } from './Button';

@@ -1,14 +1,12 @@
-import { css as vanillaCss } from 'emotion';
-import { css } from '@emotion/core';
-import styled from '@emotion/styled';
+import { css } from '@emotion/css';
 
 import { ColorByIntent } from '../../styles';
 
-import { Intent } from './type';
+import { Intent } from './types';
 
 const zIndex = 5000;
 
-export const messageContainerVanillaStyle = vanillaCss`
+export const messageContainerVanillaStyle = css`
   position: fixed;
   top: 0;
   right: 0;
@@ -22,7 +20,7 @@ export const messageWrapperStyle = css`
   text-align: center;
 `;
 
-export const Message = styled('div')`
+export const messageStyle = css`
   display: inline-flex;
   align-items: center;
   padding: 10px 16px;

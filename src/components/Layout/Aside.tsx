@@ -7,7 +7,7 @@ import { AsideProps } from './type';
 
 let id = 0;
 
-const Aside: React.FC<AsideProps> = ({
+export const Aside: React.FC<AsideProps> = ({
   width = 200,
   collapsedWidth = 80,
   collapsed = false,
@@ -28,7 +28,7 @@ const Aside: React.FC<AsideProps> = ({
 
   return (
     <aside
-      css={asideStyle}
+      className={asideStyle}
       {...props}
       style={{
         width: finalWidth,
@@ -36,5 +36,3 @@ const Aside: React.FC<AsideProps> = ({
     />
   );
 };
-
-export default Aside;

@@ -1,3 +1,3 @@
-export { default } from './Modal';
-export { default as Dialog } from './Dialog';
-export { default as useModalState } from './useModalState';
+export { Modal } from './Modal';
+export { Dialog } from './Dialog';
+export { useModalState } from './useModalState';

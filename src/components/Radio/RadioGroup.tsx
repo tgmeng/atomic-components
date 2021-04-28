@@ -1,11 +1,11 @@
 import * as React from 'react';
 
-import { RadioGroupProps } from './type';
-import { radioGroupStyle } from './style';
+import { RadioGroupProps } from './types';
+import { radioGroupStyle } from './styles';
 
 import { RadioGroupContextProvider } from './RadioGroupContext';
 
-const RadioGroup: React.FC<RadioGroupProps> = ({
+export const RadioGroup: React.FC<RadioGroupProps> = ({
   onChange,
   children,
   ...props
@@ -24,9 +24,7 @@ const RadioGroup: React.FC<RadioGroupProps> = ({
         onChange: onRadioChange,
       }}
     >
-      <div css={radioGroupStyle}>{children}</div>
+      <div className={radioGroupStyle}>{children}</div>
     </RadioGroupContextProvider>
   );
 };
-
-export default RadioGroup;

@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-export default function useControlledState<S = undefined>(
+export function useControlledState<S = undefined>(
   state?: S,
   handleStateChange?: (state: S) => void,
   initialState?: S

@@ -1,11 +1,31 @@
 import * as React from 'react';
-import * as ReactDOM from 'react-dom';
+import {
+  cloneElement,
+  useCallback,
+  useEffect,
+  useLayoutEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
+import { createPortal } from 'react-dom';
 import { usePopper } from 'react-popper';
 
-import useControlledState from '../../hooks/useControlledState';
+import { createStyledHTMLComponent } from '../../utils/component';
+import { useControlledState } from '../../hooks/useControlledState';
 
 import { PopperProps } from './type';
-import { Content, Arrow } from './style';
+import { contentStyle, arrowStyle } from './style';
+
+export const Content = createStyledHTMLComponent<HTMLDivElement>(
+  'div',
+  contentStyle
+);
+
+export const Arrow = createStyledHTMLComponent<HTMLDivElement>(
+  'div',
+  arrowStyle
+);
 
 export interface PopperInterface extends React.FC<PopperProps> {
   Content: typeof Content;
@@ -34,8 +54,8 @@ const Popper: PopperInterface = ({
   /**
    * trigger === hover, should delay
    */
-  const timeoutRef = React.useRef<number>(0);
-  const delayedToggle = React.useCallback(
+  const timeoutRef = useRef<number>(0);
+  const delayedToggle = useCallback(
     (value: boolean) => {
       clearTimeout(timeoutRef.current);
       timeoutRef.current = window.setTimeout(
@@ -47,7 +67,7 @@ const Popper: PopperInterface = ({
     },
     [enterDelay, leaveDelay, setIsOpen]
   );
-  const contentMouseEventProps = React.useMemo(
+  const contentMouseEventProps = useMemo(
     () =>
       trigger === 'hover'
         ? {
@@ -64,16 +84,13 @@ const Popper: PopperInterface = ({
   const [
     referenceElement,
     setReferenceElement,
-  ] = React.useState<HTMLDivElement | null>(null);
+  ] = useState<HTMLDivElement | null>(null);
 
-  const [
-    popperElement,
-    setPopperElement,
-  ] = React.useState<HTMLDivElement | null>(null);
-
-  const [arrowElement, setArrowElement] = React.useState<HTMLDivElement | null>(
+  const [popperElement, setPopperElement] = useState<HTMLDivElement | null>(
     null
   );
+
+  const [arrowElement, setArrowElement] = useState<HTMLDivElement | null>(null);
 
   const { styles, attributes, update } = usePopper(
     referenceElement,
@@ -98,7 +115,7 @@ const Popper: PopperInterface = ({
     }
   );
 
-  const triggerProps = React.useMemo(() => {
+  const triggerProps = useMemo(() => {
     switch (trigger) {
       case 'click':
         return {
@@ -118,8 +135,7 @@ const Popper: PopperInterface = ({
     }
   }, [delayedToggle, setIsOpen, trigger]);
 
-  // eslint-disable-next-line consistent-return
-  React.useEffect(() => {
+  useEffect(() => {
     if (trigger === 'click') {
       // trigger === click, should close when click outside
       const handler = (event: MouseEvent) => {
@@ -132,9 +148,10 @@ const Popper: PopperInterface = ({
         document.removeEventListener('click', handler);
       };
     }
+    return () => {};
   }, [trigger, popperElement?.contains, setIsOpen]);
 
-  React.useLayoutEffect(() => {
+  useLayoutEffect(() => {
     update?.();
   }, [update]);
 
@@ -144,13 +161,13 @@ const Popper: PopperInterface = ({
 
   return (
     <>
-      {React.cloneElement(children, {
+      {cloneElement(children, {
         ...restProps,
         ...triggerProps,
         ref: setReferenceElement,
       })}
       {isOpen &&
-        ReactDOM.createPortal(
+        createPortal(
           <Content
             {...attributes.popper}
             className={contentClassName}
@@ -176,4 +193,4 @@ const Popper: PopperInterface = ({
 Popper.Content = Content;
 Popper.Arrow = Arrow;
 
-export default Popper;
+export { Popper };

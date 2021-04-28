@@ -2,26 +2,39 @@ import * as React from 'react';
 
 import { createOpenStaticOpenableElementFn } from '../../../utils/staticOpenableElement';
 import { ReactComponent as OriginalCloseIcon } from '../../../resources/svgs/close.svg';
+import {
+  createComponentWithPresetProps,
+  createStyledHTMLComponent,
+} from '../../../utils/component';
 
 import { createCommonStyledIcon } from '../../Icon/style';
-import Button from '../../Button';
+import { Button } from '../../Button';
 
-import Modal from '../Modal';
+import { Modal } from '../Modal';
 import { ModalWithOpenStaticModalFn } from '../types';
 
 import { DialogProps } from './type';
 import {
-  Dialog as StyledDialog,
-  Header as StyledHeader,
-  Content,
-  Actions,
-  CloseButton,
   titleStyle,
+  headerStyle,
+  closeButtonStyle,
+  contentStyle,
+  actionsStyle,
+  dialogStyle,
 } from './style';
 
-const Container = StyledDialog.withComponent(Modal);
+const Container = createComponentWithPresetProps(Modal, {
+  className: dialogStyle,
+});
 
 const CloseIcon = createCommonStyledIcon(OriginalCloseIcon);
+
+const StyledHeader = createStyledHTMLComponent<HTMLDivElement>(
+  'div',
+  headerStyle
+);
+const Content = createStyledHTMLComponent<HTMLDivElement>('div', contentStyle);
+const Actions = createStyledHTMLComponent<HTMLDivElement>('div', actionsStyle);
 
 const Header: React.FC<
   {
@@ -32,11 +45,11 @@ const Header: React.FC<
   } & React.HTMLAttributes<HTMLDivElement>
 > = ({ isCloseHidden, onClickClose, children, ...restProps }) => (
   <StyledHeader {...restProps}>
-    <div css={titleStyle}>{children}</div>
+    <div className={titleStyle}>{children}</div>
     {!isCloseHidden && (
-      <CloseButton onClick={onClickClose}>
+      <button type="button" className={closeButtonStyle} onClick={onClickClose}>
         <CloseIcon />
-      </CloseButton>
+      </button>
     )}
   </StyledHeader>
 );
@@ -127,4 +140,4 @@ Dialog.Actions = Actions;
 
 Dialog.open = createOpenStaticOpenableElementFn(Dialog);
 
-export default Dialog;
+export { Dialog };

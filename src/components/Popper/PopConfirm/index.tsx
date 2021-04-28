@@ -1,17 +1,33 @@
 import * as React from 'react';
+import { createStyledHTMLComponent } from '../../../utils/component';
 
-import Button from '../../Button';
-import Popper from '../Popper';
+import { Button } from '../../Button';
+import { Popper } from '../Popper';
 
 import { PopConfirmProps } from './type';
-import { Content, Message, Actions, buttonStyle } from './style';
+import { actionsStyle, buttonStyle, contentStyle, messageStyle } from './style';
 
 const initialState = {
   isConfirmLoading: false,
   isCancelLoading: false,
 };
 
-const PopConfirm: React.FC<PopConfirmProps> = ({
+export const Content = createStyledHTMLComponent<HTMLDivElement>(
+  'div',
+  contentStyle
+);
+
+export const Message = createStyledHTMLComponent<HTMLDivElement>(
+  'div',
+  messageStyle
+);
+
+export const Actions = createStyledHTMLComponent<HTMLDivElement>(
+  'div',
+  actionsStyle
+);
+
+export const PopConfirm: React.FC<PopConfirmProps> = ({
   title,
   placement = 'top',
   trigger = 'click',
@@ -34,7 +50,7 @@ const PopConfirm: React.FC<PopConfirmProps> = ({
           <Message>{title}</Message>
           <Actions>
             <Button
-              css={buttonStyle}
+              className={buttonStyle}
               size="small"
               loading={state.isCancelLoading}
               onClick={() => {
@@ -55,7 +71,7 @@ const PopConfirm: React.FC<PopConfirmProps> = ({
               取消
             </Button>
             <Button
-              css={buttonStyle}
+              className={buttonStyle}
               variant="primary"
               size="small"
               loading={state.isConfirmLoading}
@@ -85,5 +101,3 @@ const PopConfirm: React.FC<PopConfirmProps> = ({
     </Popper>
   );
 };
-
-export default PopConfirm;
