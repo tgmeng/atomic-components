@@ -1,8 +1,8 @@
 import * as React from 'react';
 import clsx from 'clsx';
 
-import { ButtonGroupProps } from './type';
-import { buttonGroupStyle, buttonGroupItemStyle } from './style';
+import { ButtonGroupProps } from './types';
+import { buttonGroupStyle, buttonGroupItemStyle } from './styles';
 
 export const ButtonGroup = ({ children, ...props }: ButtonGroupProps) => {
   return (

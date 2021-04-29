@@ -12,7 +12,7 @@ import clsx from 'clsx';
 
 import { ReactComponent as ClearIcon } from '../../resources/svgs/circle-fill/close.svg';
 
-import { InputProps } from './type';
+import { InputProps } from './types';
 import {
   getInputSpanStyle,
   getInputStyle,
@@ -20,7 +20,7 @@ import {
   prefixStyle,
   suffixStyle,
   getInputWrapperStyle,
-} from './style';
+} from './styles';
 
 export const Input: FC<InputProps> = ({
   value,

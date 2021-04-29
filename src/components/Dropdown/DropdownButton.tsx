@@ -6,7 +6,7 @@ import { Button, ButtonGroup } from '../Button';
 
 import { Popper } from '../Popper/Popper';
 
-import { DropdownProps } from './type';
+import { DropdownProps } from './types';
 
 export const DropdownButton: React.FC<DropdownProps> = ({
   hasArrow = false,

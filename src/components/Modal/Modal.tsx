@@ -5,7 +5,7 @@ import { createOpenStaticOpenableElementFn } from '../../utils/staticOpenableEle
 import { createStyledHTMLComponent } from '../../utils/component';
 
 import { ModalProps, ModalWithOpenStaticModalFn } from './types';
-import { backdropStyle, modalStyle, modalWrapperStyle } from './style';
+import { backdropStyle, modalStyle, modalWrapperStyle } from './styles';
 
 import { useModalManager } from './useModalManager';
 

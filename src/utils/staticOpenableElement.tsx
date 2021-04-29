@@ -1,21 +1,20 @@
 import * as React from 'react';
+import { ComponentType, PropsWithChildren, ReactElement } from 'react';
 import * as ReactDOM from 'react-dom';
 
 import { OpenableProps } from '../types';
 
 export interface StaticOpenableElement<P> {
-  update(props: Partial<React.PropsWithChildren<P>>): void;
+  update(props: Partial<PropsWithChildren<P>>): void;
   close(): void;
 }
 
 export interface OpenStaticOpenableElementFn<P> {
-  (initialState?: Partial<React.PropsWithChildren<P>>): StaticOpenableElement<
-    P
-  >;
+  (initialState?: Partial<PropsWithChildren<P>>): StaticOpenableElement<P>;
 }
 
 export function createStaticOpenableElement<P extends OpenableProps>(
-  renderElement: (state: P) => React.ReactElement<P>,
+  renderElement: (state: P) => ReactElement<P>,
   initialState?: Partial<P>
 ): StaticOpenableElement<P> {
   let mountNode: HTMLDivElement | null = document.createElement('div');
@@ -73,13 +72,16 @@ export function createStaticOpenableElement<P extends OpenableProps>(
 }
 
 export function createOpenStaticOpenableElementFn<P extends OpenableProps>(
-  Component: React.ComponentType<P>,
-  initialState?: Partial<React.PropsWithChildren<P>>
+  Component: ComponentType<P>,
+  initialState?: Partial<PropsWithChildren<P>>
 ): OpenStaticOpenableElementFn<P> {
-  return function openStaticOpenableElement(_initialState) {
-    return createStaticOpenableElement((props) => <Component {...props} />, {
-      ...initialState,
-      ..._initialState,
-    });
+  return function openStaticOpenableElement(state) {
+    return createStaticOpenableElement(
+      (props) => <Component {...((props as OpenableProps) as P)} />,
+      {
+        ...initialState,
+        ...state,
+      }
+    );
   };
 }

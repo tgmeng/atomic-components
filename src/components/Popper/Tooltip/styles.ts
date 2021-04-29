@@ -1,5 +1,6 @@
 import { css } from '@emotion/css';
-import { getArrowStyle, Content } from '../style';
+import { refStyle } from '../../../utils/style';
+import { getArrowStyle } from '../styles';
 
 export const contentStyle = css`
   min-width: 30px;
@@ -10,19 +11,19 @@ export const contentStyle = css`
 `;
 
 export const arrowStyle = css`
-  ${Content}[data-popper-placement^='top'] &:after {
+  ${refStyle(contentStyle)}[data-popper-placement^='top'] &:after {
     ${getArrowStyle('bottom', 'rgba(0,0,0,.75)')};
   }
 
-  ${Content}[data-popper-placement^='right'] &:after {
+  ${refStyle(contentStyle)}[data-popper-placement^='right'] &:after {
     ${getArrowStyle('left', 'rgba(0,0,0,.75)')};
   }
 
-  ${Content}[data-popper-placement^='bottom'] &:after {
+  ${refStyle(contentStyle)}[data-popper-placement^='bottom'] &:after {
     ${getArrowStyle('top', 'rgba(0,0,0,.75)')};
   }
 
-  ${Content}[data-popper-placement^='left'] &:after {
+  ${refStyle(contentStyle)}[data-popper-placement^='left'] &:after {
     ${getArrowStyle('right', 'rgba(0,0,0,.75)')};
   }
 `;

@@ -7,13 +7,13 @@ import {
   createStyledHTMLComponent,
 } from '../../../utils/component';
 
-import { createCommonStyledIcon } from '../../Icon/style';
+import { createCommonStyledIcon } from '../../Icon/styles';
 import { Button } from '../../Button';
 
 import { Modal } from '../Modal';
 import { ModalWithOpenStaticModalFn } from '../types';
 
-import { DialogProps } from './type';
+import { DialogProps } from './types';
 import {
   titleStyle,
   headerStyle,
@@ -21,7 +21,7 @@ import {
   contentStyle,
   actionsStyle,
   dialogStyle,
-} from './style';
+} from './styles';
 
 const Container = createComponentWithPresetProps(Modal, {
   className: dialogStyle,

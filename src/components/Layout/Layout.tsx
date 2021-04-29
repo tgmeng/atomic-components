@@ -11,8 +11,8 @@ import {
   headerStyle,
   contentStyle,
   footerStyle,
-} from './style';
-import { LayoutContextProps } from './type';
+} from './styles';
+import { LayoutContextProps } from './types';
 
 export type LayoutInterface = FC & {
   Header: FC;

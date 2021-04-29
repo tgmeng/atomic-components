@@ -1,4 +1,4 @@
-import { BasePopperProps } from '../Popper/type';
+import { BasePopperProps } from '../Popper/types';
 
 export interface DropdownProps extends BasePopperProps {
   overlay: React.ReactNode;

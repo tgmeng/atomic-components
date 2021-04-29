@@ -16,7 +16,7 @@ import {
   resetDecoration,
 } from '../../styles';
 
-import { Size } from './type';
+import { Size } from './types';
 
 export const InputColor = TextColor;
 

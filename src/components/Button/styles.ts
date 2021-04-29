@@ -15,7 +15,7 @@ import {
   ColorByIntent,
 } from '../../styles';
 
-import { ButtonProps, Size } from './type';
+import { ButtonProps, Size } from './types';
 
 export const getSizeStyle = ({ size = 'normal' }: { size?: Size }) => {
   switch (size) {
@@ -203,7 +203,7 @@ const getLinkButtonStyle = ({
   ${getDisabledStyle()};
 `;
 
-const getVariantStyle = (props: ButtonProps) => {
+export const getVariantStyle = (props: ButtonProps) => {
   const { variant = 'default', intent = 'info' } = props;
   const color = ColorByIntent[intent];
 
@@ -248,7 +248,7 @@ const getVariantStyle = (props: ButtonProps) => {
   `;
 };
 
-const getBaseStyle = () => css`
+export const baseStyle = () => css`
   box-sizing: border-box;
   position: relative;
   display: inline-block;
@@ -261,12 +261,6 @@ const getBaseStyle = () => css`
   touch-action: manipulation;
   user-select: none;
   cursor: pointer;
-`;
-
-export const getButtonStyle = (props: ButtonProps) => css`
-  ${getBaseStyle()};
-  ${getSizeStyle(props)};
-  ${getVariantStyle(props)};
 `;
 
 const spin = keyframes`

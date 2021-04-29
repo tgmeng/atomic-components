@@ -66,7 +66,7 @@ export const arrowStyle = css`
     box-shadow: 3px 3px 7px rgba(0, 0, 0, 0.07);
   }
 
-  ${refStyle(contentStyle)}[data-pocontentSTylepper-placement^='bottom'] & {
+  ${refStyle(contentStyle)}[data-popper-placement^='bottom'] & {
     top: -4px;
   }
   ${refStyle(contentStyle)}[data-popper-placement^='bottom'] &:after {

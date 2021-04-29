@@ -3,8 +3,8 @@ import { FC } from 'react';
 
 import { Popper } from '../Popper';
 
-import { TooltipProps } from './type';
-import { contentStyle, arrowStyle } from './style';
+import { TooltipProps } from './types';
+import { contentStyle, arrowStyle } from './styles';
 
 export const Tooltip: FC<TooltipProps> = ({
   title,

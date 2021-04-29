@@ -3,7 +3,7 @@ import { ReactComponent as SuccessIcon } from '../../resources/svgs/circle/check
 import { ReactComponent as DangerIcon } from '../../resources/svgs/circle/close.svg';
 import { ReactComponent as WarningIcon } from '../../resources/svgs/circle/warning.svg';
 
-import { createCommonStyledIcon } from './style';
+import { createCommonStyledIcon } from './styles';
 
 export const IconByIntent = {
   info: createCommonStyledIcon(InfoIcon),

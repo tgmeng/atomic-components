@@ -1,9 +1,9 @@
 import * as React from 'react';
 
-import { asideStyle } from './style';
+import { asideStyle } from './styles';
 
 import { useLayoutContext } from './LayoutContext';
-import { AsideProps } from './type';
+import { AsideProps } from './types';
 
 let id = 0;
 

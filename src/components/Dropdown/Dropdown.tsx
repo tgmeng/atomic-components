@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { DropdownProps } from './type';
+import { DropdownProps } from './types';
 
 import { Popper } from '../Popper/Popper';
 

@@ -14,8 +14,8 @@ import { usePopper } from 'react-popper';
 import { createStyledHTMLComponent } from '../../utils/component';
 import { useControlledState } from '../../hooks/useControlledState';
 
-import { PopperProps } from './type';
-import { contentStyle, arrowStyle } from './style';
+import { PopperProps } from './types';
+import { contentStyle, arrowStyle } from './styles';
 
 export const Content = createStyledHTMLComponent<HTMLDivElement>(
   'div',
@@ -35,6 +35,7 @@ export interface PopperInterface extends React.FC<PopperProps> {
 const Popper: PopperInterface = ({
   isOpen: isOpenExternal,
   trigger = 'hover',
+  placement,
   content,
   contentClassName,
   arrowClassName,
@@ -96,6 +97,7 @@ const Popper: PopperInterface = ({
     referenceElement,
     popperElement,
     {
+      placement,
       modifiers: [
         ...(hasArrow
           ? [
