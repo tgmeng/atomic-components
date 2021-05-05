@@ -1,4 +1,4 @@
-import { css } from '@emotion/core';
+import { css } from '@emotion/css';
 
 import { TextColor } from './color';
 import { FontSize, LineHeight } from './font';
