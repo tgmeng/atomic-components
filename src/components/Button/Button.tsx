@@ -3,38 +3,43 @@ import clsx from 'clsx';
 
 import { createCommonStyledIcon } from '../Icon/styles';
 
-import { ReactComponent as OriginalReloadIcon } from '../../resources/svgs/reload.svg';
+import { ReactComponent as OriginalLoadingIcon } from '../../resources/svgs/loading.svg';
 
 import { ButtonRef, ButtonProps } from './types';
 import {
-  reloadIconStyle,
+  loadingIconStyle,
   iconStyle,
   baseStyle,
   getSizeStyle,
   getVariantStyle,
+  loadingStyle,
+  getDisabledStyle,
 } from './styles';
 
-const ReloadIcon = createCommonStyledIcon(OriginalReloadIcon);
+const LoadingIcon = createCommonStyledIcon(OriginalLoadingIcon);
 
 export const Button = React.forwardRef<ButtonRef, ButtonProps>(function Button(
-  { className, children, loading, ...props },
+  { className, children, loading, disabled, ...props },
   ref
 ) {
   return (
     <button
       ref={ref}
-      className={clsx(
-        baseStyle,
-        getSizeStyle(props),
-        getVariantStyle(props),
-        className
-      )}
       type="button"
       {...props}
+      className={clsx(
+        baseStyle,
+        getVariantStyle(props),
+        getSizeStyle(props),
+        disabled && getDisabledStyle(props),
+        loading && loadingStyle,
+        className
+      )}
+      disabled={disabled || loading}
     >
       {loading && (
         <span className={iconStyle}>
-          <ReloadIcon className={reloadIconStyle} />
+          <LoadingIcon className={loadingIconStyle} />
         </span>
       )}
       <span>{children}</span>
