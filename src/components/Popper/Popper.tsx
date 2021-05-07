@@ -72,8 +72,12 @@ const Popper: PopperInterface = ({
     () =>
       trigger === 'hover'
         ? {
-            onMouseEnter: () => delayedToggle(true),
-            onMouseLeave: () => delayedToggle(false),
+            onMouseEnter: () => {
+              delayedToggle(true);
+            },
+            onMouseLeave: () => {
+              delayedToggle(false);
+            },
           }
         : {},
     [trigger, delayedToggle]
@@ -121,18 +125,28 @@ const Popper: PopperInterface = ({
     switch (trigger) {
       case 'click':
         return {
-          onClick: () => setIsOpen((_isOpen) => !_isOpen),
+          onClick: () => {
+            setIsOpen((isOpenNow) => !isOpenNow);
+          },
         };
       case 'focus':
         return {
-          onFocus: () => setIsOpen(true),
-          onBlur: () => setIsOpen(false),
+          onFocus: () => {
+            setIsOpen(true);
+          },
+          onBlur: () => {
+            setIsOpen(false);
+          },
         };
       case 'hover':
       default:
         return {
-          onMouseEnter: () => delayedToggle(true),
-          onMouseLeave: () => delayedToggle(false),
+          onMouseEnter: () => {
+            delayedToggle(true);
+          },
+          onMouseLeave: () => {
+            delayedToggle(false);
+          },
         };
     }
   }, [delayedToggle, setIsOpen, trigger]);
@@ -141,7 +155,10 @@ const Popper: PopperInterface = ({
     if (trigger === 'click') {
       // trigger === click, should close when click outside
       const handler = (event: MouseEvent) => {
-        if (!popperElement?.contains(event.target as Node)) {
+        if (
+          !popperElement?.contains(event.target as Node) &&
+          !referenceElement?.contains(event.target as Node)
+        ) {
           setIsOpen(false);
         }
       };
@@ -151,7 +168,7 @@ const Popper: PopperInterface = ({
       };
     }
     return () => {};
-  }, [trigger, popperElement?.contains, setIsOpen]);
+  }, [trigger, popperElement, referenceElement, isOpen, setIsOpen]);
 
   useLayoutEffect(() => {
     update?.();
